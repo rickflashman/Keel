@@ -29,6 +29,10 @@ A ship's keel is the long beam along the bottom of the hull. Every other part is
 
 The full standard is one file: [`KEEL.md`](KEEL.md). It is both a guide for developers and a setup prompt for AI coding assistants.
 
+**Why 2.0.0?** Versions 1.0.0 to 1.5.1 grew in my own projects as the "AI Project Documentation Standard." Version 2.0.0 is the first public release, under the name KEEL.
+
+💬 **Feedback:** tell us what works and what does not in the pinned Discussion, [Feedback on KEEL 2.0](https://github.com/rickflashman/Keel/discussions/9). To send a change, see [`CONTRIBUTING.md`](CONTRIBUTING.md).
+
 ## 🚀 Quick start
 
 **Option A. Put the file in your project.** Copy `KEEL.md` into the project root and tell your AI coding agent:

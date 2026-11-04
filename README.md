@@ -14,7 +14,7 @@ Like the keel of a ship, it keeps a project steady and on course when the AI too
 
 ---
 
-**Contents:** [Why KEEL](#-why-keel) · [Quick start](#-quick-start) · [What you get](#-what-you-get) · [The 6 skills](#-the-6-skills) · [Install](#-install) · [Updates](#-updates) · [File or skill?](#-file-or-skill) · [Repository layout](#-repository-layout) · [Releasing](#-releasing-a-new-version) · [License](#-license)
+**Contents:** [Why KEEL](#-why-keel) · [Quick start](#-quick-start) · [What you get](#-what-you-get) · [The 6 skills](#-the-6-skills) · [Install](#-install) · [Updates](#-updates) · [File or skill?](#-file-or-skill) · [Repository layout](#-repository-layout) · [Releasing](#-releasing-a-new-version) · [Contributing](CONTRIBUTING.md) · [License](#-license)
 
 ## 🧭 Why KEEL
 
@@ -31,7 +31,7 @@ The full standard is one file: [`KEEL.md`](KEEL.md). It is both a guide for deve
 
 **Why 2.0.0?** Versions 1.0.0 to 1.5.1 grew in my own projects as the "AI Project Documentation Standard." Version 2.0.0 is the first public release, under the name KEEL.
 
-💬 **Feedback:** tell us what works and what does not in the pinned Discussion, [Feedback on KEEL 2.0](https://github.com/rickflashman/Keel/discussions/9). To send a change, see [`CONTRIBUTING.md`](CONTRIBUTING.md).
+💬 **Feedback:** tell me what works and what does not in the pinned Discussion, [Feedback on KEEL 2.0](https://github.com/rickflashman/Keel/discussions/9). To send a change, see [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
 ## 🚀 Quick start
 
@@ -162,6 +162,8 @@ Both forms carry the same version and the same rules.
 
 When `KEEL.md` is in the project root, it is the authority. A project can switch from the file to the skill at any time (see *Switch to the skill* in `KEEL.md`), and a project set up by the skill can add the file later.
 
+**Token cost:** `KEEL.md` is large (about 80 KB). An AI reads it once, at setup. After setup, each session loads only `AGENTS.md` (under about 120 lines) and the docs it needs for the task. The skills read sections of the standard only when they need them.
+
 ## 🗂️ Repository layout
 
 ```
@@ -179,7 +181,9 @@ install.sh                   Installs or updates the skills for other tools
 
 1. Edit `KEEL.md`: change the version line at the top and add the changelog entry.
 2. Run `python3 build/build.py`. It regenerates the skills and the manifests, and updates the version badge in this README.
-3. Commit, then tag the release: `git tag v<version>` and `git push --tags`.
+3. Update `KEEL.html` and `KEEL.pdf` from `KEEL.md`.
+4. Commit, then tag the release: `git tag v<version>` and `git push --tags`.
+5. Create the GitHub release from the tag: `gh release create v<version> --title v<version>`. Use the changelog entry as the release notes.
 
 `python3 build/build.py --check` fails when the generated files do not match `KEEL.md`. The GitHub Actions workflow runs it on every push.
 

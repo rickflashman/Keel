@@ -1,0 +1,58 @@
+# KEEL 2.1.0: migration
+
+Reference for the `keel-interview` skill, generated from `KEEL.md` (https://github.com/rickflashman/keel). Do not edit by hand.
+
+## Migrating or upgrading an existing project
+
+Use this section when the project already has documentation: another format, a single notes file, or an older version of this standard. The other Initialization rules (existing files, missing information) still apply. Whatever the prompt, change nothing until the developer approves the plan in step 5. Change only documentation, never code, configuration, or dependencies; the docs check script is the one exception.
+
+**Upgrade only:** If the project already follows an older version of this standard, do steps 1, 8, and 9. Step 8 says when to run other steps.
+
+1. **Back up.** Confirm with the developer that a backup or version-control commit exists. If not, copy the existing documentation to a folder outside the project and tell the developer where it is.
+2. **Inventory.** Scan the whole project, including subfolders, for `.md`, `.txt`, `.rst`, `.adoc`, and similar text files, plus `.docx` and `.pdf` files you can read. Include rules files (`CLAUDE.md`, `AGENTS.md`, `.cursorrules`, `.github/copilot-instructions.md`, `.github/instructions/`), decision records, test plans, QA or release checklists, user manuals or help pages, runbooks, wiki exports, TODO lists, changelogs, and release notes. Skip `docs/archive/` and dependency, build, and version-control folders (such as `node_modules`, `vendor`, `dist`, `bin`, `obj`, and `.git`). List any file you could not read and ask how to handle it.
+3. **Resolve currency.** Group the inventory by topic. For each topic with two or more sources, find the current source. Use these signals, strongest first:
+   1. A direct statement from the developer.
+   2. An explicit marker: "superseded", "deprecated", "obsolete", "old", "replaced by", or a link from a newer file.
+   3. Agreement with the current code (evidence only; code never changes SPEC or DESIGN by itself).
+   4. Dates or version numbers in the content or the file name (such as `v2`, `final`, or `2025-03`).
+   5. Version-control history, if it exists.
+
+   Do not rely on file modification dates alone; copies and sync tools (such as OneDrive or SharePoint) change them. Give each file one status: **Current**, **Partly current** (list the current sections), or **Superseded** (name what replaced it). If the signals disagree or are weak, mark the topic **Unresolved**.
+4. **Map.** Give each Current item, and each current section of a Partly current file, a target file and section (for example, "requirements in README → `docs/SPEC.md` Goals"). Superseded content gets no target; it stays in the archive. Flag content with no target, content that conflicts with this standard, and content you would have to infer. When a newer source changed a choice recorded in a Superseded file, propose 2 decision notes from the original wording: the old choice ("Superseded by NNNN") and the new one (Accepted). For evidence of the change, such as failed tests, propose a `docs/RESEARCH.md` entry with the old finding marked "Outdated (date)".
+5. **Get approval.** Show the developer the inventory, the currency table below, the mapping, the proposed decision notes and research entries, and the draft archive index (step 7). Ask about every Unresolved topic and every Low-confidence row; do not guess. Wait for approval.
+
+   | Topic | Sources | Current source | Evidence | Confidence |
+   |---|---|---|---|---|
+   | (Login method) | (`auth.md`, `auth-v2.md`, `new-login.md`) | (`new-login.md`) | (Matches the code; newest date) | (High / Medium / Low) |
+6. **Migrate**, using the templates in `templates/` (guidance: `templates/README.md`):
+   - Migrate only the content mapped in step 4. Reorganize its original wording; do not rewrite or drop it. Never invent content: if a section has no source, keep the heading and write "(Not documented yet.)" Mark content inferred from code "Inferred, needs developer review" in SPEC and DESIGN.
+   - Give each acceptance criterion an ID, and create `RELEASE-CHECKLIST.md` with a matching check for each, carrying in existing test plans and release checklists.
+   - Build the `ARCHITECTURE.md` area map from the existing code and tests, as its template says. If no command can run one area alone, write "(Full suite only)" and report it. Do not run the tests during the migration unless the developer asks. Write the docs check script and add its row.
+   - Put user manuals or help content in `docs/USER-GUIDE.md`, and their images in `docs/images/`. Offer to convert the guide to Simplified Technical English. Put runbooks and operations notes in the `ARCHITECTURE.md` Operations section, or `docs/RUNBOOK.md` if they pass a page.
+   - Copy decision records into `docs/decisions/` word for word, keeping their status (Accepted if none). Add the approved decision notes, using "(Not documented yet.)" for any part with no source, and number all notes together in date order. Link each approved research entry from its decision note.
+   - Merge the rules files into `AGENTS.md`. Put project-specific rules under Conventions, Claude-only rules under Claude-only notes in `CLAUDE.md`, and Copilot-only rules under Copilot-only notes in `.github/copilot-instructions.md`. Report conflicts with this standard or between files. Then replace `CLAUDE.md` and `.github/copilot-instructions.md` with their templates, keeping those notes.
+   - Move lasting content from handoff, session-note, or TODO files to its proper doc, and leftovers to `docs/HANDOFF.md` as dated bullets, with the routing printed.
+   - Move changelogs and release notes to `docs/CHANGELOG.md`, newest first.
+   - Update links to moved content. Point links to Superseded files at their replacements, not at the archive. Set the `AGENTS.md` version stamp to this skill's version.
+7. **Archive.** Move the originals into `docs/archive/` under their original paths, so files with the same name do not collide (`notes/auth.md` becomes `docs/archive/notes/auth.md`). For files that keep their path, such as `README.md` and the rules files, save a copy there before editing. Create `docs/archive/INDEX.md` from its template, or add to it, with one row per archived file. Never delete the originals or the backup.
+8. **Upgrade.** The version stamp is in `AGENTS.md` (in `CLAUDE.md` before 1.2.0). If it is older than this skill's version, apply only the changes since that version, in order, using the Changelog and the blocks below. Show the developer the planned changes and wait for approval, as in step 5. Then apply them and update the stamp.
+   - **1.x to 1.5.1:** for a project on a version before 1.5.1, first apply the blocks in `UPGRADING-1.x.md` (https://github.com/rickflashman/keel/blob/main/UPGRADING-1.x.md), in order, then the blocks below.
+   - **1.5.1 to 2.0.0:** The standard is now KEEL. New headings and template lines are structure: add them directly once the developer approves the plan, with "(Not documented yet.)" as content. Only changes to accepted SPEC or DESIGN text go through PROPOSED blocks. Headers keep their `> Jira:` form; the standard now accepts any tracker name.
+     1. Root: during this version the root may hold `AI-PROJECT-DOCS-STANDARD.md` beside or instead of `KEEL.md`; follow `KEEL.md`. Set the stamp to `Aligned to KEEL 2.0.0 (https://github.com/rickflashman/keel)`. An existing stamp `Aligned to KEEL v2.0.0` is the same version in its earlier form: update it to the new form, and the `KEEL.md` line after it, the next time you edit `AGENTS.md`.
+     2. `AGENTS.md`: replace every template section with its 2.0.0 version (all changed; Reporting and the precedence line are new; the cap is about 120 lines), keep the project's own lines, and add the Conventions lines for ask-before-touching paths and area owners. Propose cuts under rule 8 and wait for approval.
+     3. `ARCHITECTURE.md`: convert the test map to the area map (add Code, Entry points, ACs, and Confidence; mark rows Inferred); add `Verified: (not yet verified)` under the header; add the Operations section with Known traps, the data lifecycle line, and the Testing lines for the docs check, the AC citation, and the results files; write the docs check script and add its row.
+     4. `SPEC.md`: add `Verified: (not yet verified)`, the Glossary and Constraints headings, and the Area name on each feature group. Convert each proposed SPEC or DESIGN change waiting in the old `HANDOFF.md` Open questions into a PROPOSED block.
+     5. `PLAN.md`: add the Definition of ready, replace the Definition of done, and convert Current / Next to the work board.
+     6. `RELEASE-CHECKLIST.md`: replace the Release steps and the Result values.
+     7. `README.md`: add Owners and support.
+     8. `CLAUDE.md`: extend the compaction note.
+     9. `HANDOFF.md`: run the close routine on it: route each item, move lasting gotchas to Known traps or `RESEARCH.md`, and rewrite it with the dated sections. If more than 1 developer works on the project, create `docs/handoff/<developer>.md` per developer and retire `docs/HANDOFF.md`.
+     10. Offer the as-built review; it sets the Verified dates.
+   - **2.0.0 to 2.1.0:** Add the new headings and template lines directly once the developer approves the plan. Change no accepted SPEC or DESIGN text.
+     1. `AGENTS.md`: replace every template section with its 2.1.0 version: most sections are shorter, the close routine steps moved to the handoff file, Testing is shorter, and the Code section is gone. Keep the project's own lines: Conventions, Ask before touching, Area owners, the Docs entries for files that exist, and the Skills list. Move the old Code lines into Conventions, each with a weight and a reason, and offer to add a weight and a reason to each other Conventions rule (rule 8). Set the stamp to `Aligned to KEEL 2.1.0 (https://github.com/rickflashman/keel)`, and add the "Kept as is" line.
+     2. `ARCHITECTURE.md`: add the Environment facts section, with "(Not documented yet.)" as content. Add the Stronger checks line to Testing, and ask the developer the stronger checks question in rule 9 (word for word; it explains each option and recommends the simpler one). Delete the "How to run tests" and "Results file" lines from Testing; those rules are now in `AGENTS.md`. Replace the guidance line of the area map.
+     3. Decision template: new notes have a Date line. Do not edit existing notes.
+     4. `HANDOFF.md`: in the header, change "about 40 lines" to "at most 40 lines", and add the Close routine line from the template. In the Routing line, add "and unfinished tasks" to the PLAN.md route, and "environment facts" to the ARCHITECTURE.md route.
+     5. Docs check: use the caps of rule 8 in checks 1 and 2 (`AGENTS.md`: a warning above 120 lines or 1,200 words, a failure above 140 lines or 1,500 words; handoff: a warning above 40 lines, a failure above 50). Add the carry count to check 2, and the root folder files and the Kept as is line to check 5. Update the script's header comment. Run it. Report any root doc files it finds, and offer to absorb them.
+     6. Tell the developer that the cross-compare review and the docs cleanup are available on request.
+9. **Report** what moved where, what was inferred, which Superseded content was not migrated and what replaced it, what was left unmapped, and any conflicts. Also list, with file names, each superseded approach that the code still appears to use (possible dead code or an unfinished change). Run the Initialization checklist and mark any item that does not pass. Then continue with *After the path* (Initialization rules).

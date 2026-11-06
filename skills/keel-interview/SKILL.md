@@ -1,14 +1,14 @@
 ---
 name: keel-interview
-description: "KEEL 2.0.0 SPEC interview: asks the developer a few questions at a time about the gaps in docs/SPEC.md (edge cases, non-goals, trade-offs, constraints, glossary terms, acceptance criteria) and writes the answers as PROPOSED blocks for acceptance. Use in a KEEL project when the developer runs keel-interview (/keel:keel-interview or /keel-interview), asks to interview them about the spec, or wants to fill the gaps in SPEC.md."
+description: "KEEL 2.1.0 SPEC interview: asks the developer a few questions at a time about the gaps in docs/SPEC.md (edge cases, non-goals, trade-offs, constraints, glossary terms, acceptance criteria) and writes the answers as PROPOSED blocks for acceptance. Use in a KEEL project when the developer runs keel-interview (/keel:keel-interview or /keel-interview), asks to interview them about the spec, or wants to fill the gaps in SPEC.md."
 argument-hint: "[feature or area to focus on]"
 metadata:
-  version: "2.0.0"
+  version: "2.1.0"
   source: "https://github.com/rickflashman/keel"
 ---
-# KEEL 2.0.0: SPEC interview
+# KEEL 2.1.0: SPEC interview
 
-Fill the gaps in `docs/SPEC.md` by interviewing the developer, under KEEL version 2.0.0 (October 31, 2026), https://github.com/rickflashman/keel.
+Fill the gaps in `docs/SPEC.md` by interviewing the developer, under KEEL version 2.1.0 (November 6, 2026), https://github.com/rickflashman/keel.
 
 If the developer gave instructions with the command, such as a feature to focus on, follow them: $ARGUMENTS
 
@@ -24,7 +24,7 @@ Never edit accepted SPEC text. The standard is in `references/standard.md`.
 
 ## The interview rule
 
-**SPEC interview:** After you seed or migrate `SPEC.md`, offer to interview the developer about its gaps: edge cases, non-goals, trade-offs, constraints, glossary terms, and acceptance criteria. Ask a few questions at a time, and skip questions the docs already answer. Write the resulting SPEC changes as PROPOSED blocks for acceptance (rule 1). The developer may decline. If you offer an as-built review, offer the interview after it.
+**SPEC interview:** Interview the developer about the gaps in `SPEC.md`: edge cases, non-goals, trade-offs, constraints, glossary terms, and acceptance criteria. Ask a few questions at a time, and skip questions the docs already answer. Write the resulting SPEC changes as PROPOSED blocks for acceptance (rule 1). The developer may decline.
 
 **Proposed changes to SPEC and DESIGN:** The AI never edits accepted text in `SPEC.md` or `DESIGN.md` (rule 1). It writes each proposal in the file, next to the text it changes, as a PROPOSED block, never only in chat:
 
@@ -33,7 +33,7 @@ Never edit accepted SPEC text. The standard is in `references/standard.md`.
 > Reason: the form now has a guest path. Code: src/forms/signup.js.
 ```
 
-A PROPOSED block is not a requirement and not a design. The developer accepts it by applying the edit and deleting the marker, rejects it by deleting the block, or tells the AI to do either. A block is named by its file and the AC ID or heading it changes (`SPEC.md AC-3`). The AI lists pending blocks in its task summary and, at the next close, in `HANDOFF.md` under Waiting. No block may remain at a release (rule 6).
+A PROPOSED block is not a requirement and not a design. The developer accepts it by applying the edit and deleting the marker, rejects it by deleting the block, or tells the AI to do either. The developer may decide on several blocks at once, for example "accept all PROPOSED blocks in SPEC.md". The developer may also accept the blocks of a ready card together with the card, but only by saying so; approval of the card alone does not accept its blocks. A block is named by its file and the AC ID or heading it changes (`SPEC.md AC-3`). The AI lists pending blocks in its task summary and, at the next close, in `HANDOFF.md` under Waiting. No block may remain at a release (rule 6).
 
 ---
 

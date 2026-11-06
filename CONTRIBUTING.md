@@ -17,7 +17,6 @@ A useful report names the AI tool and model, the KEEL version, and what you expe
 `KEEL.md` is the single source of truth. All other KEEL content comes from it.
 
 - `build/build.py` generates `skills/` and `.claude-plugin/` from `KEEL.md`. Do not edit those folders by hand.
-- `KEEL.html` and `KEEL.pdf` are renderings of `KEEL.md`. The maintainer updates them at each release.
 - The GitHub Actions workflow runs `python3 build/build.py --check` on every push and pull request. The check fails when the generated files do not match `KEEL.md`.
 
 ## Send a change

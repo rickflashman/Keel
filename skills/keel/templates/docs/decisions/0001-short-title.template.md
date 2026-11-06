@@ -1,4 +1,5 @@
 # 0001: Short title
+Date: YYYY-MM-DD (the day the decision was made)
 Status: Accepted (or Superseded by 000X)
 Context: What problem or choice we faced.
 Decision: What we chose.

@@ -1,5 +1,5 @@
 # Archive index
-Original files moved here during migration, kept for history only. Do not use them as a source of current information. Never delete them.
+Original files moved here by a migration or an absorb, kept for history only. Do not use them as a source of current information. Never delete them.
 
 Status: Migrated (all content moved to the current docs), Partly migrated (current sections moved; the rest was superseded), or Superseded (not migrated; replaced by a newer source).
 

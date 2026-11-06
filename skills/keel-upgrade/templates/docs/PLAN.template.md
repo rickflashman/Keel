@@ -30,7 +30,7 @@ Before calling a task done:
       Next: (one action)
 
 - Result matches the ready card, if there was one; anything outside it is reported, not done
-- Code is readable and documented per the AGENTS.md rules
+- Code is readable and documented per the AGENTS.md Conventions
 - Affected docs updated, as listed in the AGENTS.md Docs list (SPEC and DESIGN changes written as PROPOSED blocks; all other docs updated directly)
 - DESIGN-GUIDE.html, if it exists, regenerated if DESIGN.md changed
 - USER-GUIDE.md, if it exists, updated if user-facing behavior changed

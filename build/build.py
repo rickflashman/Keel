@@ -34,6 +34,9 @@ SOURCE = ROOT / "KEEL.md"
 SKILLS_DIR = ROOT / "skills"
 PLUGIN_DIR = ROOT / ".claude-plugin"
 REPO_URL = "https://github.com/rickflashman/keel"
+UPGRADING_FILE = "UPGRADING-1.x.md"      # 1.x upgrade blocks and changelog, kept out of KEEL.md
+UPGRADING_REF = "upgrading-1.x.md"       # its name inside a skill's references/
+UPGRADING_KEY = "__upgrading_1x__"       # marker in section_files: this skill ships the file
 SKILL_NAMES = ["keel", "keel-init", "keel-upgrade", "keel-check", "keel-as-built", "keel-interview"]
 
 
@@ -190,6 +193,8 @@ def adapt(text: str, section_files: dict[str, str]) -> str:
     out = out.replace("Create the files from the templates.", "Create the files from the templates in `templates/` (guidance: `templates/README.md`).")
     out = out.replace("using the starter templates", "using the templates in `templates/` (guidance: `templates/README.md`)")
     out = out.replace("(see *Proposed changes*)", "(see *Proposed changes to SPEC and DESIGN*)")
+    if section_files.get(UPGRADING_KEY):
+        out = out.replace(f"`{UPGRADING_FILE}` ({REPO_URL}/blob/main/{UPGRADING_FILE})", f"`references/{UPGRADING_REF}`")
 
     def ref(m: re.Match) -> str:
         title = m.group(1)
@@ -233,6 +238,9 @@ STANDARD_SECTIONS = [
     "Docs check and drift report",
 ]
 
+# The on-request reviews: inline in keel-check, a reference file elsewhere.
+REVIEWS = "Cross-compare review and docs cleanup"
+
 COMMON_NOTE = (
     "This skill is generated from `KEEL.md` in {repo}. Do not edit it by hand; "
     "change `KEEL.md` and run `python3 build/build.py`.\n"
@@ -259,8 +267,8 @@ Like the keel of a ship, it keeps a project steady and on course when the AI too
 | Skill | Task |
 |---|---|
 | `keel-init` | New setup from the templates, for a project with no docs yet |
-| `keel-upgrade` | Migrate existing docs, upgrade an older KEEL version, or switch a `KEEL.md` project to this skill |
-| `keel-check` | Write or run the docs check script, and write a drift report |
+| `keel-upgrade` | Migrate existing docs, upgrade an older KEEL version, or switch a project from the `KEEL.md` file to this installed skill (the skill then replaces the file as the reference) |
+| `keel-check` | Write or run the docs check script, write a drift report, and, on request, run a cross-compare review or a docs cleanup |
 | `keel-as-built` | The as-built review: area map, SPEC from code, differences and health |
 | `keel-interview` | The SPEC interview: fill the gaps in `SPEC.md` as PROPOSED blocks |
 
@@ -281,8 +289,10 @@ The rest of this file is the standard itself: authority, initialization rules, f
             "migration.md": ["Migrating or upgrading an existing project"],
             "checklist.md": ["Initialization checklist"],
             "changelog.md": ["Changelog"],
+            "reviews.md": [REVIEWS],
         },
         "templates": "all",
+        "upgrading_1x": True,
     },
     "keel-init": {
         "description": (
@@ -318,7 +328,10 @@ If the developer gave the ticket ID, the project description, or other instructi
 Never overwrite a file that already exists; merge or ask. The rest of this file is the part of the standard that a new setup needs.
 """,
         "inline": ["Initialization rules", "Folder layout", "The documentation files", "Project skills", "Linking to the project tracker", "Risk classes", "Rules", "Docs check and drift report", "Initialization checklist"],
-        "references": {},
+        "references": {
+            "reviews.md": [REVIEWS],
+            "migration.md": ["Migrating or upgrading an existing project"],
+        },
         "templates": "all",
     },
     "keel-upgrade": {
@@ -349,25 +362,34 @@ The rest of this file holds the initialization rules, the migration and upgrade 
         "references": {
             "checklist.md": ["Initialization checklist"],
             "changelog.md": ["Changelog"],
+            "reviews.md": [REVIEWS],
         },
         "templates": "all",
+        "upgrading_1x": True,
     },
     "keel-check": {
         "description": (
-            "KEEL {version} docs check and drift report. Writes or runs the project's docs check "
-            "script (AGENTS.md size and stamp, handoff size, AC coverage in the release checklist, "
+            "KEEL {version} docs check, drift report, and on-request reviews. Writes or runs the project's docs check "
+            "script (AGENTS.md size and stamp, handoff size and carried bullets, AC coverage in the release checklist, "
             "broken paths and links, unlisted docs, headers, stray doc versions, stale PROPOSED "
             "blocks, secrets) and writes the read-only drift report (SPEC with no code, code with no "
-            "SPEC, ACs with no test, stale doc sections). Use in a KEEL project when the developer "
-            "runs keel-check (/keel:keel-check or /keel-check), says 'run the docs check', 'run a drift report', or before a release."
+            "SPEC, ACs with no test, stale doc sections). Only when the developer asks: a cross-compare "
+            "review of all docs and the code, or a docs cleanup. Use in a KEEL project when the developer "
+            "runs keel-check (/keel:keel-check or /keel-check), says 'run the docs check', 'run a drift report', "
+            "'run a cross-compare review', 'run a docs cleanup', or before a release."
         ),
         "explicit": False,
-        "argument_hint": "[docs | drift | both]",
-        "intro": """# KEEL {version}: docs check and drift report
+        "argument_hint": "[docs | drift | both | cross-compare | cleanup]",
+        "intro": """# KEEL {version}: docs check, drift report, and on-request reviews
 
-Run the 2 documentation checks of KEEL version {version} ({date}), {repo}. Both are defined below.
+Run the documentation checks of KEEL version {version} ({date}), {repo}. All of them are defined below.
 
 If the developer gave instructions with the command, follow them: $ARGUMENTS
+
+## Which task
+
+- **Docs check** and **drift report:** steps 1 to 4 below. With no other instruction, run both.
+- **Cross-compare review** or **docs cleanup:** only when the developer asks for it by name. They use many tokens. Do step 1, then follow *Cross-compare review and docs cleanup* below.
 
 ## Steps
 
@@ -378,9 +400,11 @@ If the developer gave instructions with the command, follow them: $ARGUMENTS
 
 When the developer asked for only 1 of the 2 checks, do that one. Before a release, both run (rule 6 in `references/standard.md`).
 """,
-        "inline": ["Docs check and drift report"],
+        "inline": ["Docs check and drift report", REVIEWS],
         "references": {
             "standard.md": STANDARD_SECTIONS,
+            # For absorbing a doc file that check 5 flags.
+            "migration.md": ["Migrating or upgrading an existing project"],
         },
         "templates": ["docs/ARCHITECTURE.md", "docs/RESEARCH.md"],
     },
@@ -414,6 +438,8 @@ If the developer gave instructions with the command, such as the areas to review
         "inline": [],
         "references": {
             "standard.md": STANDARD_SECTIONS,
+            "reviews.md": [REVIEWS],
+            "migration.md": ["Migrating or upgrading an existing project"],
         },
         "templates": ["docs/SPEC.md", "docs/ARCHITECTURE.md", "docs/RESEARCH.md", "docs/HANDOFF.md"],
     },
@@ -449,6 +475,7 @@ Never edit accepted SPEC text. The standard is in `references/standard.md`.
         "inline": [],
         "references": {
             "standard.md": STANDARD_SECTIONS,
+            "migration.md": ["Migrating or upgrading an existing project"],
         },
         "templates": ["docs/SPEC.md", "docs/RELEASE-CHECKLIST.md", "docs/HANDOFF.md"],
     },
@@ -478,6 +505,8 @@ def build_skill(name: str, spec: dict, sections: dict[str, str], templates: list
             section_files.setdefault(title, f"references/{fname}")
     for title, kind, label in spec.get("inline_extra", []):
         pass  # extracts, not whole sections
+    if spec.get("upgrading_1x"):
+        section_files[UPGRADING_KEY] = "yes"
 
     # Frontmatter.
     desc = spec["description"].format(**fmt)
@@ -525,6 +554,10 @@ def build_skill(name: str, spec: dict, sections: dict[str, str], templates: list
         if t["guidance"]:
             readme += [adapt(t["guidance"], section_files), ""]
     files["templates/README.md"] = "\n".join(readme).rstrip() + "\n"
+
+    # The 1.x upgrade blocks, for the skills that upgrade projects.
+    if spec.get("upgrading_1x"):
+        files[f"references/{UPGRADING_REF}"] = (ROOT / UPGRADING_FILE).read_text(encoding="utf-8")
     return files
 
 
@@ -580,7 +613,7 @@ def generate() -> dict[str, str]:
     text = SOURCE.read_text(encoding="utf-8")
     version, date = read_version(text)
     sections = split_sections(text)
-    missing = [t for t in STANDARD_SECTIONS + ["Initialization rules", "Starter templates", "Initialization checklist", "Migrating or upgrading an existing project", "Changelog"] if t not in sections]
+    missing = [t for t in STANDARD_SECTIONS + [REVIEWS, "Initialization rules", "Starter templates", "Initialization checklist", "Migrating or upgrading an existing project", "Changelog"] if t not in sections]
     if missing:
         sys.exit(f"build: KEEL.md is missing the section(s) {missing}; update build.py if a heading changed")
     tintro, templates = parse_templates(sections["Starter templates"])

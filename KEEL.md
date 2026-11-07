@@ -2,7 +2,7 @@
 
 A documentation and working standard for AI-developed projects.
 
-Version 2.1.0 (November 6, 2026) - Rick Flashman. Formerly the AI Project Documentation Standard (1.0.0 to 1.5.1).
+Version 2.1.1 (November 7, 2026) - Rick Flashman. Formerly the AI Project Documentation Standard (1.0.0 to 1.5.1).
 
 ## Overview
 
@@ -507,7 +507,7 @@ Before calling a task done:
 AI working rules for every AI tool on this project; CLAUDE.md and .github/copilot-instructions.md only point here. At most 120 lines and 1,200 words: cut any line whose removal would not cause mistakes.
 
 ## Project documentation standard
-- Aligned to KEEL 2.1.0 (https://github.com/rickflashman/keel). Update when the docs are realigned.
+- Aligned to KEEL 2.1.1 (https://github.com/rickflashman/keel). Update when the docs are realigned.
 - `KEEL.md` in the project root, else the KEEL skill, is the authority for the doc structure, else the existing docs; read it before you change that structure. Never change, move, or delete `KEEL.md` without the developer's instruction.
 - Precedence, highest first: developer instruction > docs/decisions/ > SPEC.md and DESIGN.md (accepted text, not PROPOSED blocks) > ARCHITECTURE.md and PLAN.md > RUNBOOK.md, USER-GUIDE.md, and MOCKUP.md (mockups only) > HANDOFF.md and RESEARCH.md > CHANGELOG.md (history only) > the code (evidence only) > docs/archive/ (never a source).
 
@@ -515,7 +515,9 @@ AI working rules for every AI tool on this project; CLAUDE.md and .github/copilo
 - In README.md (from the ticket) and docs/ARCHITECTURE.md. Record new commands in ARCHITECTURE.md only.
 
 ## Conventions
-- (Project rules, 1 per line, added when a real mistake happens: `Must | Never | Prefer: the rule. Why: the reason.` Example: `Must: a header comment on every file. Why: sessions start without memory.`)
+- Never: clever or compressed code; if performance needs it, comment why. Why: the next reader, human or AI, must understand it without the original session.
+- Must: a header comment on every file and a doc comment on every function or component (what, inputs, outputs); inside, comment only the why of non-obvious logic. Why: sessions start without memory, so the code must explain itself.
+- (Project rules, 1 per line, added when a real mistake happens: `Must | Never | Prefer: the rule. Why: the reason.` The 2 rules above are defaults; keep, change, or delete them.)
 - Ask before touching: (paths that always need a ready card, such as auth, migrations, CI; or "(none)")
 - Area owners: (optional: area, owner, review required; delete if unused)
 
@@ -905,12 +907,14 @@ Use this section when the project already has documentation: another format, a s
      4. `HANDOFF.md`: in the header, change "about 40 lines" to "at most 40 lines", and add the Close routine line from the template. In the Routing line, add "and unfinished tasks" to the PLAN.md route, and "environment facts" to the ARCHITECTURE.md route.
      5. Docs check: use the caps of rule 8 in checks 1 and 2 (`AGENTS.md`: a warning above 120 lines or 1,200 words, a failure above 140 lines or 1,500 words; handoff: a warning above 40 lines, a failure above 50). Add the carry count to check 2, and the root folder files and the Kept as is line to check 5. Update the script's header comment. Run it. Report any root doc files it finds, and offer to absorb them.
      6. Tell the developer that the cross-compare review and the docs cleanup are available on request.
+   - **2.1.0 to 2.1.1:** In `AGENTS.md` Conventions, add the 2 default code rules from the template (no clever or compressed code; header and doc comments), unless the project already has rules that cover them or the developer removed them on purpose. Set the stamp to `Aligned to KEEL 2.1.1 (https://github.com/rickflashman/keel)`.
 9. **Report** what moved where, what was inferred, which Superseded content was not migrated and what replaced it, what was left unmapped, and any conflicts. Also list, with file names, each superseded approach that the code still appears to use (possible dead code or an unfinished change). Run the Initialization checklist and mark any item that does not pass. Then continue with *After the path* (Initialization rules).
 
 ## Changelog
 
 Add a new entry at the top for each update, with its version and date, and update the version stamp in the `AGENTS.md` template to match.
 
+- **2.1.1 (November 7, 2026):** The `AGENTS.md` template ships 2 default code rules in Conventions again: no clever or compressed code, and header and doc comments. In 2.1.0 they had become only an example, so new projects did not get them.
 - **2.1.0 (November 6, 2026):** Changes from the first public feedback. Handoff: the docs check counts carries by bullet text without the date, so a redated copy is still caught (a warning at 1 carry, a failure at 2; Waiting bullets for pending PROPOSED blocks are exempt), and unfinished work goes to a work board row. Docs: doc files outside the standard can be absorbed and archived at any time, with a "Kept as is" line in `AGENTS.md` and a wider check 5. Decisions have a Date line. PROPOSED blocks can be decided as a set. Project rules carry a weight (Must, Never, or Prefer) and a reason. `ARCHITECTURE.md` has an Environment facts section, the area map is for long-range dependencies (reading nearby code is fine), and optional stronger checks ("what if" cases and mutation tests) can be recorded in Testing. New on-request reviews in `keel-check`: a cross-compare review of all docs and the code, and a docs cleanup. The as-built review ends with a 1-line offer of the cross-compare review. Also: a start routine for each session; exact caps (a warning above 120 or 40 lines, a failure above 140 or 50); a complete precedence line; the ticket seeds the docs only once, and later ticket changes are written in like any other change; the test-run rules moved from the `ARCHITECTURE.md` template to `AGENTS.md`; the Initialization rules are in the order of the work; the 1.x upgrade blocks and changelog moved to `UPGRADING-1.x.md`; and an example project in `examples/`. The `AGENTS.md` template is about 30% shorter: the close routine steps moved to the top of the handoff file, the Testing section is merged and shorter, repeated rules are cut, and a word cap (1,200 words) joins the line cap.
 - **2.0.0 (October 31, 2026):** Renamed to KEEL; any tracker, not only Jira. Handoff: a close routine with a printed routing report, a 40-line cap, dated bullets in 5 typed sections, and per-developer files for teams. Drift: SPEC and DESIGN proposals are PROPOSED blocks in the file, the test map became the area map, and a required docs check, a drift report, and Verified dates were added. Guardrails: risk classes, a ready card (rule 10), evidence in a fixed task summary (rule 11), a bug repro gate, no weakened tests, and a precedence line in `AGENTS.md`. Existing code: a 6-step as-built review. Teams: a work board with a claim rule in `PLAN.md`. New content: Operations, Known traps, Glossary, Constraints, Owners and support, and dependency review. `AGENTS.md` is capped at about 120 lines. The KEEL skill: 6 skills (`keel`, `keel-init`, `keel-upgrade`, `keel-check`, `keel-as-built`, `keel-interview`) generated from this file by `build/build.py` and installed once at user level, through the Claude Code plugin marketplace in this repository, `npx skills add`, or `install.sh`, for Claude Code, Codex, Cursor, and GitHub Copilot; a Switch to the skill path; and the neutral stamp `Aligned to KEEL 2.0.0 (https://github.com/rickflashman/keel)`, the same for the file and the skill.
 - **1.x:** the entries for 1.0.0 to 1.5.1 are in `UPGRADING-1.x.md` (https://github.com/rickflashman/keel/blob/main/UPGRADING-1.x.md).

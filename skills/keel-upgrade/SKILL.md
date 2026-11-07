@@ -1,18 +1,18 @@
 ---
 name: keel-upgrade
-description: "KEEL 2.1.0 migration and upgrade: brings an existing project's documentation up to the KEEL standard (inventory, currency, mapping, approval, migrate, archive), upgrades a project on an older KEEL or AI-PROJECT-DOCS-STANDARD version, or switches a project from the KEEL.md file to this skill. Use when the developer runs keel-upgrade (/keel:keel-upgrade or /keel-upgrade), says 'migrate the docs to KEEL', 'upgrade KEEL', or 'switch to the KEEL skill'."
+description: "KEEL 2.1.1 migration and upgrade: brings an existing project's documentation up to the KEEL standard (inventory, currency, mapping, approval, migrate, archive), upgrades a project on an older KEEL or AI-PROJECT-DOCS-STANDARD version, or switches a project from the KEEL.md file to this skill. Use when the developer runs keel-upgrade (/keel:keel-upgrade or /keel-upgrade), says 'migrate the docs to KEEL', 'upgrade KEEL', or 'switch to the KEEL skill'."
 disable-model-invocation: true
 argument-hint: "[migrate | upgrade | switch]"
 metadata:
-  version: "2.1.0"
+  version: "2.1.1"
   source: "https://github.com/rickflashman/keel"
 ---
-# KEEL 2.1.0: migrate, upgrade, or switch
+# KEEL 2.1.1: migrate, upgrade, or switch
 
-Bring an existing project up to KEEL version 2.1.0 (November 6, 2026), https://github.com/rickflashman/keel. Three cases:
+Bring an existing project up to KEEL version 2.1.1 (November 7, 2026), https://github.com/rickflashman/keel. Three cases:
 
 - **Migration:** the project has documentation in another form (a README, notes, rules files, an older wiki export). Follow *Migrating or upgrading an existing project* below, steps 1 to 9.
-- **Upgrade:** the project follows an older version of this standard (the stamp in `AGENTS.md` is older than 2.1.0, or names *AI-PROJECT-DOCS-STANDARD*). Do steps 1, 8, and 9. `references/changelog.md` lists what changed in each version.
+- **Upgrade:** the project follows an older version of this standard (the stamp in `AGENTS.md` is older than 2.1.1, or names *AI-PROJECT-DOCS-STANDARD*). Do steps 1, 8, and 9. `references/changelog.md` lists what changed in each version.
 - **Switch to the skill:** the project has `KEEL.md` in its root folder and the developer wants this skill to be the reference instead. Follow the Switch to the skill path in the Initialization rules below.
 
 If the developer gave instructions with the command, follow them: $ARGUMENTS
@@ -101,6 +101,7 @@ Use this section when the project already has documentation: another format, a s
      4. `HANDOFF.md`: in the header, change "about 40 lines" to "at most 40 lines", and add the Close routine line from the template. In the Routing line, add "and unfinished tasks" to the PLAN.md route, and "environment facts" to the ARCHITECTURE.md route.
      5. Docs check: use the caps of rule 8 in checks 1 and 2 (`AGENTS.md`: a warning above 120 lines or 1,200 words, a failure above 140 lines or 1,500 words; handoff: a warning above 40 lines, a failure above 50). Add the carry count to check 2, and the root folder files and the Kept as is line to check 5. Update the script's header comment. Run it. Report any root doc files it finds, and offer to absorb them.
      6. Tell the developer that the cross-compare review and the docs cleanup are available on request.
+   - **2.1.0 to 2.1.1:** In `AGENTS.md` Conventions, add the 2 default code rules from the template (no clever or compressed code; header and doc comments), unless the project already has rules that cover them or the developer removed them on purpose. Set the stamp to `Aligned to KEEL 2.1.1 (https://github.com/rickflashman/keel)`.
 9. **Report** what moved where, what was inferred, which Superseded content was not migrated and what replaced it, what was left unmapped, and any conflicts. Also list, with file names, each superseded approach that the code still appears to use (possible dead code or an unfinished change). Run the Initialization checklist and mark any item that does not pass. Then continue with *After the path* (Initialization rules).
 
 ## Authority and file handling

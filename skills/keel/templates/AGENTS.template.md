@@ -2,7 +2,7 @@
 AI working rules for every AI tool on this project; CLAUDE.md and .github/copilot-instructions.md only point here. At most 120 lines and 1,200 words: cut any line whose removal would not cause mistakes.
 
 ## Project documentation standard
-- Aligned to KEEL 2.1.0 (https://github.com/rickflashman/keel). Update when the docs are realigned.
+- Aligned to KEEL 2.1.1 (https://github.com/rickflashman/keel). Update when the docs are realigned.
 - `KEEL.md` in the project root, else the KEEL skill, is the authority for the doc structure, else the existing docs; read it before you change that structure. Never change, move, or delete `KEEL.md` without the developer's instruction.
 - Precedence, highest first: developer instruction > docs/decisions/ > SPEC.md and DESIGN.md (accepted text, not PROPOSED blocks) > ARCHITECTURE.md and PLAN.md > RUNBOOK.md, USER-GUIDE.md, and MOCKUP.md (mockups only) > HANDOFF.md and RESEARCH.md > CHANGELOG.md (history only) > the code (evidence only) > docs/archive/ (never a source).
 
@@ -10,7 +10,9 @@ AI working rules for every AI tool on this project; CLAUDE.md and .github/copilo
 - In README.md (from the ticket) and docs/ARCHITECTURE.md. Record new commands in ARCHITECTURE.md only.
 
 ## Conventions
-- (Project rules, 1 per line, added when a real mistake happens: `Must | Never | Prefer: the rule. Why: the reason.` Example: `Must: a header comment on every file. Why: sessions start without memory.`)
+- Never: clever or compressed code; if performance needs it, comment why. Why: the next reader, human or AI, must understand it without the original session.
+- Must: a header comment on every file and a doc comment on every function or component (what, inputs, outputs); inside, comment only the why of non-obvious logic. Why: sessions start without memory, so the code must explain itself.
+- (Project rules, 1 per line, added when a real mistake happens: `Must | Never | Prefer: the rule. Why: the reason.` The 2 rules above are defaults; keep, change, or delete them.)
 - Ask before touching: (paths that always need a ready card, such as auth, migrations, CI; or "(none)")
 - Area owners: (optional: area, owner, review required; delete if unused)
 

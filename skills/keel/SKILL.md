@@ -1,15 +1,15 @@
 ---
 name: keel
-description: "KEEL 2.1.0, the documentation and working standard for AI-developed projects. Sets up, migrates, or upgrades a project's docs (README, SPEC, ARCHITECTURE, PLAN, RELEASE-CHECKLIST, AGENTS.md) and chooses the right path on its own. Use when the developer runs the keel skill (/keel:keel or /keel), says 'apply KEEL', 'set up KEEL', or 'upgrade to the latest KEEL', or is not sure which KEEL task they need. Task skills: keel-init, keel-upgrade, keel-check, keel-as-built, keel-interview."
+description: "KEEL 2.1.1, the documentation and working standard for AI-developed projects. Sets up, migrates, or upgrades a project's docs (README, SPEC, ARCHITECTURE, PLAN, RELEASE-CHECKLIST, AGENTS.md) and chooses the right path on its own. Use when the developer runs the keel skill (/keel:keel or /keel), says 'apply KEEL', 'set up KEEL', or 'upgrade to the latest KEEL', or is not sure which KEEL task they need. Task skills: keel-init, keel-upgrade, keel-check, keel-as-built, keel-interview."
 disable-model-invocation: true
 argument-hint: "[init | upgrade | switch | check | as-built | interview | free text]"
 metadata:
-  version: "2.1.0"
+  version: "2.1.1"
   source: "https://github.com/rickflashman/keel"
 ---
-# KEEL 2.1.0
+# KEEL 2.1.1
 
-A documentation and working standard for AI-developed projects. Version 2.1.0 (November 6, 2026), https://github.com/rickflashman/keel.
+A documentation and working standard for AI-developed projects. Version 2.1.1 (November 7, 2026), https://github.com/rickflashman/keel.
 
 Like the keel of a ship, it keeps a project steady and on course when the AI tool, the AI model, or the developer changes. It keeps the AI's work organized, supportable, and token-efficient. This is the general skill: it looks at the project, chooses the right path, and does it. The developer may also call 1 task directly:
 

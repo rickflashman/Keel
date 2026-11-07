@@ -2,7 +2,7 @@
 AI working rules for every AI tool on this project; CLAUDE.md and .github/copilot-instructions.md only point here. At most 120 lines and 1,200 words: cut any line whose removal would not cause mistakes.
 
 ## Project documentation standard
-- Aligned to KEEL 2.1.0 (https://github.com/rickflashman/keel). Update when the docs are realigned.
+- Aligned to KEEL 2.1.1 (https://github.com/rickflashman/keel). Update when the docs are realigned.
 - `KEEL.md` in the project root, else the KEEL skill, is the authority for the doc structure, else the existing docs; read it before you change that structure. Never change, move, or delete `KEEL.md` without the developer's instruction.
 - Precedence, highest first: developer instruction > docs/decisions/ > SPEC.md and DESIGN.md (accepted text, not PROPOSED blocks) > ARCHITECTURE.md and PLAN.md > RUNBOOK.md, USER-GUIDE.md, and MOCKUP.md (mockups only) > HANDOFF.md and RESEARCH.md > CHANGELOG.md (history only) > the code (evidence only) > docs/archive/ (never a source).
 
@@ -13,7 +13,8 @@ AI working rules for every AI tool on this project; CLAUDE.md and .github/copilo
 - Must: store all times in UTC in the database. Why: the 2026-10-08 daylight-saving bug double-booked rooms.
 - Never: edit files in src/generated/. Why: `npm run gen` overwrites them.
 - Prefer: one route file per resource in src/routes/. Why: the area map follows these files.
-- Must: a header comment on every file and a doc comment on every function. Why: sessions start without memory.
+- Never: clever or compressed code; if performance needs it, comment why. Why: the next reader, human or AI, must understand it without the original session.
+- Must: a header comment on every file and a doc comment on every function or component (what, inputs, outputs); inside, comment only the why of non-obvious logic. Why: sessions start without memory, so the code must explain itself.
 - Ask before touching: db/migrations/, src/auth/
 
 ## Making changes

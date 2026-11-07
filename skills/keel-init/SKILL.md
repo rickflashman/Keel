@@ -1,15 +1,15 @@
 ---
 name: keel-init
-description: "KEEL 2.1.0 new setup: creates the baseline docs for a project that has no documentation yet (README, docs/SPEC, ARCHITECTURE, PLAN, RELEASE-CHECKLIST, AGENTS.md, CLAUDE.md, copilot-instructions) from the KEEL templates, then runs the initialization checklist. Use when the developer runs keel-init (/keel:keel-init or /keel-init) or asks to initialize a new project with KEEL. For a project that already has docs, use keel-upgrade."
+description: "KEEL 2.1.1 new setup: creates the baseline docs for a project that has no documentation yet (README, docs/SPEC, ARCHITECTURE, PLAN, RELEASE-CHECKLIST, AGENTS.md, CLAUDE.md, copilot-instructions) from the KEEL templates, then runs the initialization checklist. Use when the developer runs keel-init (/keel:keel-init or /keel-init) or asks to initialize a new project with KEEL. For a project that already has docs, use keel-upgrade."
 disable-model-invocation: true
 argument-hint: "[ticket ID or project description]"
 metadata:
-  version: "2.1.0"
+  version: "2.1.1"
   source: "https://github.com/rickflashman/keel"
 ---
-# KEEL 2.1.0: new setup
+# KEEL 2.1.1: new setup
 
-Create the baseline documentation for a project that has no documentation yet. Version 2.1.0 (November 6, 2026), https://github.com/rickflashman/keel.
+Create the baseline documentation for a project that has no documentation yet. Version 2.1.1 (November 7, 2026), https://github.com/rickflashman/keel.
 
 If the developer gave the ticket ID, the project description, or other instructions with the command, use them: $ARGUMENTS
 

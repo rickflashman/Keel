@@ -1,4 +1,4 @@
-# KEEL 2.1.0: starter templates
+# KEEL 2.1.1: starter templates
 
 Generated from `KEEL.md` (https://github.com/rickflashman/keel). Do not edit by hand. Each template is a file in this folder at the path it takes in the project, with `.template` before its extension: copy `docs/SPEC.template.md` to `docs/SPEC.md`.
 

@@ -6,7 +6,7 @@
 
 Like the keel of a ship, it keeps a project steady and on course when the AI tool, the AI model, or the developer changes.
 
-[![Version](https://img.shields.io/badge/version-2.1.0-0b5fff)](https://github.com/rickflashman/keel/releases)
+[![Version](https://img.shields.io/badge/version-2.1.1-0b5fff)](https://github.com/rickflashman/keel/releases)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![Works with](https://img.shields.io/badge/works%20with-Claude%20Code%20%7C%20Codex%20%7C%20Cursor%20%7C%20Copilot-6f42c1)](#-install)
 
@@ -14,7 +14,7 @@ Like the keel of a ship, it keeps a project steady and on course when the AI too
 
 ---
 
-**Contents:** [Why KEEL](#-why-keel) · [What's new](#-whats-new-in-210) · [Quick start](#-quick-start) · [What you get](#-what-you-get) · [The 6 skills](#-the-6-skills) · [Install](#-install) · [Updates](#-updates) · [File or skill?](#-file-or-skill) · [Repository layout](#-repository-layout) · [Releasing](#-releasing-a-new-version) · [Contributing](CONTRIBUTING.md) · [License](#-license)
+**Contents:** [Why KEEL](#-why-keel) · [What's new](#-whats-new-in-21) · [Quick start](#-quick-start) · [What you get](#-what-you-get) · [The 6 skills](#-the-6-skills) · [Install](#-install) · [Updates](#-updates) · [File or skill?](#-file-or-skill) · [Repository layout](#-repository-layout) · [Releasing](#-releasing-a-new-version) · [Contributing](CONTRIBUTING.md) · [License](#-license)
 
 ## 🧭 Why KEEL
 
@@ -29,13 +29,13 @@ A ship's keel is the long beam along the bottom of the hull. Every other part is
 
 The full standard is one file: [`KEEL.md`](KEEL.md). It is both a guide for developers and a setup prompt for AI coding assistants.
 
-**Version history:** versions 1.0.0 to 1.5.1 grew in my own projects as the "AI Project Documentation Standard." Version 2.0.0 was the first public release, under the name KEEL. Version 2.1.0 adds the changes from the first public feedback. The changelog is at the end of [`KEEL.md`](KEEL.md).
+**Version history:** versions 1.0.0 to 1.5.1 grew in my own projects as the "AI Project Documentation Standard." Version 2.0.0 was the first public release, under the name KEEL. Version 2.1 adds the changes from the first public feedback. The changelog is at the end of [`KEEL.md`](KEEL.md).
 
 💬 **Feedback:** tell me what works and what does not in the [pinned feedback Discussion](https://github.com/rickflashman/Keel/discussions/9). To send a change, see [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
-## ✨ What's new in 2.1.0
+## ✨ What's new in 2.1
 
-Version 2.1.0 comes from the first round of public feedback on 2.0.0. In short:
+Version 2.1 comes from the first round of public feedback on 2.0.0. In short:
 
 - **Handoffs cannot hide old work.** The docs check now catches a handoff note that is copied into the next session with a new date. Unfinished work moves to the work board, where it stays visible.
 - **A smaller `AGENTS.md`.** The file that the AI loads in every session is about 27% shorter, and it now has a word limit as well as a line limit.
@@ -43,6 +43,8 @@ Version 2.1.0 comes from the first round of public feedback on 2.0.0. In short:
 - **2 new reviews, on request only:** a cross-compare review that finds docs that disagree with each other or with the code, and a docs cleanup that removes repetition and old history.
 - **Small additions:** a date on each decision, a start routine for each session, an "Environment facts" section for things the AI cannot guess, a reason with each project rule, and permission to accept several proposed changes at once.
 - **Easier to learn:** an [example project](examples/room-booking-api/), clearer wording throughout, and the old 1.x upgrade steps moved out of `KEEL.md`.
+
+Version 2.1.1 adds dropped default code rules to the `AGENTS.md` template.
 
 Projects on 2.0.0 upgrade with `/keel:keel-upgrade`, or by telling the AI: *"Read KEEL.md and do what it says."*
 
@@ -149,7 +151,7 @@ It finds the 6 skills in `skills/`, asks which tools to install into, and copies
 curl -fsSL https://raw.githubusercontent.com/rickflashman/keel/main/install.sh | sh
 ```
 
-It clones this repository into `~/.keel/src`, then copies the skills into the folder of every tool whose config folder exists on your machine. Options: `--agents claude,codex,cursor,copilot` to choose the tools, `--project` to install into the current project instead, `--ref v2.1.0` for a release tag, and `--remove` to uninstall. From a clone, run `sh install.sh --source .`.
+It clones this repository into `~/.keel/src`, then copies the skills into the folder of every tool whose config folder exists on your machine. Options: `--agents claude,codex,cursor,copilot` to choose the tools, `--project` to install into the current project instead, `--ref v2.1.1` for a release tag, and `--remove` to uninstall. From a clone, run `sh install.sh --source .`.
 
 Skills folders, user level: Claude Code `~/.claude/skills/`, Codex `~/.agents/skills/`, Cursor `~/.cursor/skills/`, GitHub Copilot `~/.copilot/skills/`. Project level: `.agents/skills/` for Codex, Cursor, and Copilot, and `.claude/skills/` for Claude Code.
 

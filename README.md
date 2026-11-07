@@ -11,7 +11,8 @@ Like the keel of a ship, it keeps a project steady and on course when the AI too
 [![Version](https://img.shields.io/badge/version-2.1.1-1f4e8c)](https://github.com/rickflashman/keel/releases)
 [![License: MIT](https://img.shields.io/badge/license-MIT-1e6b3a)](LICENSE)
 [![Works with](https://img.shields.io/badge/works%20with-Claude%20Code%20%7C%20Codex%20%7C%20Cursor%20%7C%20Copilot-4f5b6b)](#install)
-[![Website: keel.to](https://img.shields.io/badge/website-keel.to-1f4e8c)](https://keel.to)
+
+### Website: [keel.to](https://keel.to)
 
 </div>
 

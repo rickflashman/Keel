@@ -1,22 +1,25 @@
 <div align="center">
 
-# ⚓ KEEL
+<a href="https://keel.to"><img src="logo/KEEL-LOGO.svg" width="480" alt="KEEL - The AI Project Documentation Backbone"></a>
+
+# KEEL
 
 **A documentation and working standard for AI-developed projects.**
 
 Like the keel of a ship, it keeps a project steady and on course when the AI tool, the AI model, or the developer changes.
 
-[![Version](https://img.shields.io/badge/version-2.1.1-0b5fff)](https://github.com/rickflashman/keel/releases)
-[![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
-[![Works with](https://img.shields.io/badge/works%20with-Claude%20Code%20%7C%20Codex%20%7C%20Cursor%20%7C%20Copilot-6f42c1)](#-install)
+[![Version](https://img.shields.io/badge/version-2.1.1-1f4e8c)](https://github.com/rickflashman/keel/releases)
+[![License: MIT](https://img.shields.io/badge/license-MIT-1e6b3a)](LICENSE)
+[![Works with](https://img.shields.io/badge/works%20with-Claude%20Code%20%7C%20Codex%20%7C%20Cursor%20%7C%20Copilot-4f5b6b)](#install)
+[![Website: keel.to](https://img.shields.io/badge/website-keel.to-1f4e8c)](https://keel.to)
 
 </div>
 
 ---
 
-**Contents:** [Why KEEL](#-why-keel) · [What's new](#-whats-new-in-21) · [Quick start](#-quick-start) · [What you get](#-what-you-get) · [The 6 skills](#-the-6-skills) · [Install](#-install) · [Updates](#-updates) · [File or skill?](#-file-or-skill) · [Repository layout](#-repository-layout) · [Releasing](#-releasing-a-new-version) · [Contributing](CONTRIBUTING.md) · [License](#-license)
+**Contents:** [Why KEEL](#why-keel) · [What's new](#whats-new-in-21) · [Quick start](#quick-start) · [What you get](#what-you-get) · [The 6 skills](#the-6-skills) · [Install](#install) · [Updates](#updates) · [File or skill?](#file-or-skill) · [Repository layout](#repository-layout) · [Releasing](#releasing-a-new-version) · [Contributing](CONTRIBUTING.md) · [License](#license)
 
-## 🧭 Why KEEL
+## Why KEEL
 
 AI coding tools are fast, but they forget. Each new session, model, or tool starts without the context of the last one. The result is familiar:
 
@@ -31,9 +34,10 @@ The full standard is one file: [`KEEL.md`](KEEL.md). It is both a guide for deve
 
 **Version history:** versions 1.0.0 to 1.5.1 grew in my own projects as the "AI Project Documentation Standard." Version 2.0.0 was the first public release, under the name KEEL. Version 2.1 adds the changes from the first public feedback. The changelog is at the end of [`KEEL.md`](KEEL.md).
 
-💬 **Feedback:** tell me what works and what does not in the [pinned feedback Discussion](https://github.com/rickflashman/Keel/discussions/9). To send a change, see [`CONTRIBUTING.md`](CONTRIBUTING.md).
+> [!NOTE]
+> **Feedback:** tell me what works and what does not in the [pinned feedback Discussion](https://github.com/rickflashman/Keel/discussions/9). To send a change, see [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
-## ✨ What's new in 2.1
+## What's new in 2.1
 
 Version 2.1 comes from the first round of public feedback on 2.0.0. In short:
 
@@ -48,7 +52,7 @@ Version 2.1.1 adds dropped default code rules to the `AGENTS.md` template.
 
 Projects on 2.0.0 upgrade with `/keel:keel-upgrade`, or by telling the AI: *"Read KEEL.md and do what it says."*
 
-## 🚀 Quick start
+## Quick start
 
 **Option A. Put the file in your project.** Copy `KEEL.md` into the project root and tell your AI coding agent:
 
@@ -64,11 +68,11 @@ Projects on 2.0.0 upgrade with `/keel:keel-upgrade`, or by telling the AI: *"Rea
 /plugin install keel@keel
 ```
 
-Then open any project and run `/keel:keel`. For other tools, see [Install](#-install).
+Then open any project and run `/keel:keel`. For other tools, see [Install](#install).
 
 Both options work for new and existing projects. The AI asks for your approval before it changes any existing file.
 
-## 📦 What you get
+## What you get
 
 KEEL sets up a small, fixed set of files. Each one has a job.
 
@@ -93,7 +97,7 @@ And a few habits the rules enforce:
 - 🤝 **Clean handoffs.** A close routine routes each item to its proper document and rewrites the handoff file. Nothing is copied forward, and the docs check catches a bullet that is carried again with a new date.
 - 🧹 **Docs stay in one place.** A notes file or Word document that appears later can be absorbed into the KEEL docs and archived. On request, a cross-compare review finds docs that disagree, and a docs cleanup removes repetition and old history.
 
-## 🧩 The 6 skills
+## The 6 skills
 
 The same standard, packaged as skills you install once at user level. They work in every project without the file.
 
@@ -117,7 +121,7 @@ A few prompts to try in a KEEL project:
 > *I'm closing this session. Run the close routine.*
 > *Prepare release 1.0: run the release checklist and record the results.*
 
-## 🔧 Install
+## Install
 
 ### Claude Code (plugin, with updates)
 
@@ -157,7 +161,7 @@ Skills folders, user level: Claude Code `~/.claude/skills/`, Codex `~/.agents/sk
 
 Call a skill by its name, for example `/keel-init`, or ask for it in words. Note: `disable-model-invocation` (explicit only) is a Claude Code setting; other tools may start any of the 6 skills on their own when a request matches its description.
 
-## 🔄 Updates
+## Updates
 
 The plugin tracks the repository: every merged change is an update, and the KEEL version is in each skill.
 
@@ -171,7 +175,7 @@ To update on your own in Claude Code, open `/plugin`, choose Marketplaces, choos
 
 Inside a project, `/keel:keel-upgrade` then brings the project's docs to the new version.
 
-## ⚖️ File or skill?
+## File or skill?
 
 Both forms carry the same version and the same rules.
 
@@ -184,7 +188,7 @@ When `KEEL.md` is in the project root, it is the authority. A project can switch
 
 **Token cost:** `KEEL.md` is large (about 90 KB). An AI reads it once, at setup. After setup, each session loads only `AGENTS.md` (about 1,000 words) and the docs it needs for the task. The skills read sections of the standard only when they need them.
 
-## 🗂️ Repository layout
+## Repository layout
 
 ```
 KEEL.md                      The standard: the single source of truth
@@ -196,9 +200,10 @@ skills/<name>/templates/     The starter templates, 1 file each (generated)
 install.sh                   Installs or updates the skills for other tools
 UPGRADING-1.x.md             Upgrade steps and changelog for KEEL 1.x (copied into the upgrade skills)
 examples/                    An example project with a finished KEEL setup
+logo/                        The KEEL logo (master files in the keel.to repo)
 ```
 
-## 🏷️ Releasing a new version
+## Releasing a new version
 
 1. Edit `KEEL.md`: change the version line at the top and add the changelog entry.
 2. Run `python3 build/build.py`. It regenerates the skills and the manifests, and updates the version badge in this README.
@@ -207,6 +212,6 @@ examples/                    An example project with a finished KEEL setup
 
 `python3 build/build.py --check` fails when the generated files do not match `KEEL.md`. The GitHub Actions workflow runs it on every push.
 
-## 📄 License
+## License
 
 MIT. See [`LICENSE`](LICENSE).

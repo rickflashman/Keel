@@ -8,7 +8,7 @@
 
 Like the keel of a ship, it keeps a project steady and on course when the AI tool, the AI model, or the developer changes.
 
-[![Version](https://img.shields.io/badge/version-2.1.2-1f4e8c)](https://github.com/rickflashman/keel/releases)
+[![Version](https://img.shields.io/badge/version-2.2.0-1f4e8c)](https://github.com/rickflashman/keel/releases)
 [![License: MIT](https://img.shields.io/badge/license-MIT-1e6b3a)](LICENSE)
 [![Works with](https://img.shields.io/badge/works%20with-Claude%20Code%20%7C%20Codex%20%7C%20Cursor%20%7C%20Copilot-4f5b6b)](#install)
 
@@ -18,7 +18,7 @@ Like the keel of a ship, it keeps a project steady and on course when the AI too
 
 ---
 
-**Contents:** [Why KEEL](#why-keel) · [What's new](#whats-new-in-21) · [Quick start](#quick-start) · [What you get](#what-you-get) · [The 6 skills](#the-6-skills) · [Install](#install) · [Updates](#updates) · [File or skill?](#file-or-skill) · [Repository layout](#repository-layout) · [Releasing](#releasing-a-new-version) · [Contributing](CONTRIBUTING.md) · [License](#license)
+**Contents:** [Why KEEL](#why-keel) · [What's new](#whats-new-in-22) · [Quick start](#quick-start) · [What you get](#what-you-get) · [The 6 skills](#the-6-skills) · [Install](#install) · [Updates](#updates) · [File or skill?](#file-or-skill) · [Repository layout](#repository-layout) · [Releasing](#releasing-a-new-version) · [Contributing](CONTRIBUTING.md) · [License](#license)
 
 ## Why KEEL
 
@@ -38,6 +38,16 @@ The full standard is one file: [`KEEL.md`](KEEL.md). It is both a guide for deve
 > [!NOTE]
 > **Feedback:** tell me what works and what does not in the [pinned feedback Discussion](https://github.com/rickflashman/Keel/discussions/9). To send a change, see [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
+## What's new in 2.2
+
+- **One upgrade rule.** To upgrade a project, the AI reads the changelog and compares each file with its current template. `KEEL.md` has no upgrade steps for each version now. The older steps are in [`UPGRADING-2.x.md`](UPGRADING-2.x.md).
+- **Smaller skills.** `SKILL.md` has about 55% fewer words in `keel`, 42% in `keel-upgrade`, and 18% in `keel-init`. A skill reads the working rules and the file descriptions only when its path needs them.
+- **A smaller `AGENTS.md`.** The template is about 14% shorter than in 2.1.2. It has a budget of 1,100 words, so each project keeps 100 words for its own rules.
+- **Personal rules files.** A personal file, such as `~/.claude/CLAUDE.md`, stays outside the project. It is not migrated, and it does not override the project docs.
+- **Small rules:** the AI never works around a deliberate blocker, tests are removed with their acceptance criterion, and mockups come before a large UI change.
+
+To upgrade a project from an earlier version, run `/keel:keel-upgrade`, or tell the AI: *"Read KEEL.md and do what it says."*
+
 ## What's new in 2.1
 
 Version 2.1 comes from the first round of public feedback on 2.0.0. In short:
@@ -52,8 +62,6 @@ Version 2.1 comes from the first round of public feedback on 2.0.0. In short:
 Version 2.1.1 adds dropped default code rules to the `AGENTS.md` template.
 
 Version 2.1.2 adds 4 small rules: a question gets an answer, not a change; the AI asks before a destructive action that you did not request; a project rule can carry its exception; and the task summary and the handoff are written for a reader who did not see the session.
-
-Projects on 2.0.0 upgrade with `/keel:keel-upgrade`, or by telling the AI: *"Read KEEL.md and do what it says."*
 
 ## Quick start
 
@@ -189,7 +197,7 @@ Both forms carry the same version and the same rules.
 
 When `KEEL.md` is in the project root, it is the authority. A project can switch from the file to the skill at any time (see *Switch to the skill* in `KEEL.md`), and a project set up by the skill can add the file later.
 
-**Token cost:** `KEEL.md` is large (about 90 KB). An AI reads it once, at setup. After setup, each session loads only `AGENTS.md` (about 1,000 words) and the docs it needs for the task. The skills read sections of the standard only when they need them.
+**Token cost:** `KEEL.md` is large (about 100 KB). An AI reads it once, at setup. After setup, each session loads only `AGENTS.md` (about 1,000 words) and the docs it needs for the task. The skills read sections of the standard only when they need them.
 
 ## Repository layout
 
@@ -202,6 +210,7 @@ skills/<name>/templates/     The starter templates, 1 file each (generated)
 .claude-plugin/              Plugin and marketplace manifests (generated)
 install.sh                   Installs or updates the skills for other tools
 UPGRADING-1.x.md             Upgrade steps and changelog for KEEL 1.x (copied into the upgrade skills)
+UPGRADING-2.x.md             Upgrade steps for KEEL 2.0.0 to 2.1.2 (copied into the upgrade skills)
 examples/                    An example project with a finished KEEL setup
 logo/                        The KEEL logo (master files in the keel.to repo)
 ```

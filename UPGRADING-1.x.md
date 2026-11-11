@@ -2,7 +2,7 @@
 
 The upgrade steps and changelog entries for versions 1.0.0 to 1.5.1 of KEEL (then called the AI Project Documentation Standard). They moved here from `KEEL.md` in 2.1.0, so that a new setup does not read them. Nothing was changed.
 
-Use this file only for a project whose stamp is older than 1.5.1. Apply the blocks in order, as step 8 of *Migrating or upgrading an existing project* in `KEEL.md` says, then continue with the blocks in `KEEL.md`.
+Use this file only for a project whose stamp is older than 1.5.1. Apply the blocks in order, as step 8 of *Migrating or upgrading an existing project* in `KEEL.md` says, then continue with the blocks in `UPGRADING-2.x.md` and the general rule in that step.
 
 Step numbers in the blocks (such as "steps 6 and 7") refer to *Migrating or upgrading an existing project* in `KEEL.md`. In a skill, that section is in `SKILL.md` or `references/migration.md`.
 

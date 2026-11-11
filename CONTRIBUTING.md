@@ -18,6 +18,7 @@ A useful report names the AI tool and model, the KEEL version, and what you expe
 
 - `build/build.py` generates `skills/` and `.claude-plugin/` from `KEEL.md`. Do not edit those folders by hand.
 - The GitHub Actions workflow runs `python3 build/build.py --check` on every push and pull request. The check fails when the generated files do not match `KEEL.md`.
+- The `AGENTS.md` template in `KEEL.md` has a budget of 1,100 words (rule 8). The build fails above it. To add a line, cut or move another line.
 
 ## Send a change
 

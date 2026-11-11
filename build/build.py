@@ -34,9 +34,10 @@ SOURCE = ROOT / "KEEL.md"
 SKILLS_DIR = ROOT / "skills"
 PLUGIN_DIR = ROOT / ".claude-plugin"
 REPO_URL = "https://github.com/rickflashman/keel"
-UPGRADING_FILE = "UPGRADING-1.x.md"      # 1.x upgrade blocks and changelog, kept out of KEEL.md
-UPGRADING_REF = "upgrading-1.x.md"       # its name inside a skill's references/
-UPGRADING_KEY = "__upgrading_1x__"       # marker in section_files: this skill ships the file
+# The version blocks for upgrades up to 2.1.2, kept out of KEEL.md. A skill that
+# upgrades projects ships each file in references/, under its lowercase name.
+UPGRADING_FILES = ["UPGRADING-1.x.md", "UPGRADING-2.x.md"]
+UPGRADING_KEY = "__upgrading__"          # marker in section_files: this skill ships the files
 SKILL_NAMES = ["keel", "keel-init", "keel-upgrade", "keel-check", "keel-as-built", "keel-interview"]
 
 
@@ -117,6 +118,29 @@ def bold_paragraph(section: str, label: str) -> str:
     return "\n".join(out).rstrip()
 
 
+def rule_bullet(section: str, label: str) -> str:
+    """Return the sub-bullet '   - **label:** ...' of a rule, moved to column 0.
+
+    Input: the Rules section and the bold label of the sub-bullet. Output: the
+    bullet with its continuation lines (such as a message block), each with the
+    3-space indent of the rule removed. Stops at the next sub-bullet or rule.
+    """
+    lines = section.splitlines()
+    start = None
+    for i, line in enumerate(lines):
+        if line.startswith(f"   - **{label}:**"):
+            start = i
+            break
+    if start is None:
+        sys.exit(f"build: rule sub-bullet '{label}' not found")
+    out = [lines[start]]
+    for line in lines[start + 1:]:
+        if line.startswith("   - **") or re.match(r"\d+\. ", line):
+            break
+        out.append(line)
+    return "\n".join(l[3:] if l.startswith("   ") else l for l in out).rstrip()
+
+
 TEMPLATE_RE = re.compile(r"^\*\*([^*]+)\*\*(?:\s+\*\(([^)]*)\)\*)?\s*$")
 
 
@@ -177,6 +201,10 @@ def template_file_name(path: str) -> str:
 # Text adaptation: KEEL.md speaks as a file; the skills speak as a skill
 # --------------------------------------------------------------------------
 
+# Named paragraphs that other sections cite, and the section that holds each.
+PARAGRAPH_HOME = {"Proposed changes to SPEC and DESIGN": "The documentation files"}
+
+
 def adapt(text: str, section_files: dict[str, str]) -> str:
     """Rewrite self-references and cross-references for a skill.
 
@@ -193,12 +221,22 @@ def adapt(text: str, section_files: dict[str, str]) -> str:
     out = out.replace("Create the files from the templates.", "Create the files from the templates in `templates/` (guidance: `templates/README.md`).")
     out = out.replace("using the starter templates", "using the templates in `templates/` (guidance: `templates/README.md`)")
     out = out.replace("(see *Proposed changes*)", "(see *Proposed changes to SPEC and DESIGN*)")
+    out = out.replace("(see *Starter templates*)", "(see `templates/README.md`)")
     if section_files.get(UPGRADING_KEY):
-        out = out.replace(f"`{UPGRADING_FILE}` ({REPO_URL}/blob/main/{UPGRADING_FILE})", f"`references/{UPGRADING_REF}`")
+        # This skill ships the files in references/, so it names them there.
+        # This skill ships the files in references/, so it does not point to the repository.
+        out = out.replace(" Both files are in the KEEL repository, at the address in the version stamp.", "")
+        for fname in UPGRADING_FILES:
+            out = out.replace(f"`{fname}`", f"`references/{fname.lower()}`")
 
     def ref(m: re.Match) -> str:
         title = m.group(1)
         where = section_files.get(title)
+        if where is None and title in PARAGRAPH_HOME and not section_files.get(f"__inline__{title}"):
+            # A named paragraph: point to the file that holds its section.
+            home = section_files.get(PARAGRAPH_HOME[title])
+            if home and home != "inline":
+                return f"(see *{title}* in `{home}`)"
         if where is None or where == "inline":
             return m.group(0)
         return f"(see `{where}`)"
@@ -237,6 +275,35 @@ STANDARD_SECTIONS = [
     "Rules",
     "Docs check and drift report",
 ]
+
+# The 3 setup skills (keel, keel-init, keel-upgrade) keep in SKILL.md only the
+# sections that every path needs. The rest is in 2 reference files, so a path
+# reads them only when it needs them.
+FILES_SECTIONS = ["Folder layout", "The documentation files", "Linking to the project tracker"]
+RULES_SECTIONS = ["Project skills", "Risk classes", "Rules"]
+
+# The setup question inside rule 9. A setup skill carries it in SKILL.md, so a
+# new setup does not need to read all the rules.
+STRONGER_CHECKS = ("The stronger checks question (rule 9)", "Rules", "Stronger checks (optional)")
+RULES_NOTE = (
+    "The working rules (rule 1 to rule 11), the risk classes, and project skills are in "
+    "`references/rules.md`. Read it only when a step or a template names a rule and you need its full text."
+)
+
+# The setup skills do not carry the steps of the as-built review: the
+# keel-as-built skill holds them. Each entry is (section, bullet label, new text).
+AS_BUILT_POINTER = (
+    "Initialization rules",
+    "As-built review",
+    "- **As-built review:** A review of existing code, offered after the path for a project with code "
+    "(see After the path). The developer may decline or choose only some areas. On approval, run the "
+    "`keel-as-built` skill, which holds the steps. If that skill is not installed, follow the As-built "
+    "review steps in the Initialization rules of `KEEL.md` ({repo}).",
+)
+
+# The AGENTS.md template is loaded in every session of every project. KEEL.md
+# rule 8 gives it this budget, so each project keeps words for its own rules.
+AGENTS_TEMPLATE_BUDGET = 1100  # words
 
 # The on-request reviews: inline in keel-check, a reference file elsewhere.
 REVIEWS = "Cross-compare review and docs cleanup"
@@ -277,22 +344,26 @@ If the developer gave extra instructions with the command, follow them: $ARGUMEN
 ## How to use this skill
 
 1. Read *Initialization rules* below and choose 1 path: Upgrade, Migration, New setup, or Switch to the skill. Tell the developer which path you chose and why before you continue.
-2. For a Migration or an Upgrade, read `references/migration.md` and follow it. `references/changelog.md` lists the changes in each version.
-3. For a New setup, create the files from `templates/` (guidance: `templates/README.md`), in the numbered order of the documentation files table.
-4. When the path is complete, run `references/checklist.md` and report. Then offer the as-built review (if the project has code) and the SPEC interview.
+2. For a Migration or an Upgrade, read `references/migration.md` and follow it. `references/changelog.md` lists the changes in each version. For a Migration, first read `references/files.md`.
+3. For a New setup, first read `references/files.md`: the folder layout, the documentation files, and the tracker link. Then create the files from `templates/` (guidance: `templates/README.md`), in the numbered order of the documentation files table.
+4. When the path is complete, run `references/checklist.md` and report. Then make the offers that the After the path rule names: the as-built review and the SPEC interview.
 5. The developer approves before any existing file changes. Never delete, rename, move, or modify `KEEL.md` without the developer's explicit instruction.
 
-The rest of this file is the standard itself: authority, initialization rules, folder layout, the documentation files, project skills, the tracker link, risk classes, the rules, and the docs check.
+The rest of this file is the part of the standard that every path needs: authority, the initialization rules, the docs check, and the stronger checks question. {rules_note}
 """,
-        "inline": ["Authority and file handling", "Initialization rules"] + STANDARD_SECTIONS[1:],
+        "inline": ["Authority and file handling", "Initialization rules", "Docs check and drift report"],
+        "extracts": [STRONGER_CHECKS],
+        "replace_bullets": [AS_BUILT_POINTER],
         "references": {
             "migration.md": ["Migrating or upgrading an existing project"],
             "checklist.md": ["Initialization checklist"],
             "changelog.md": ["Changelog"],
             "reviews.md": [REVIEWS],
+            "files.md": FILES_SECTIONS,
+            "rules.md": RULES_SECTIONS,
         },
         "templates": "all",
-        "upgrading_1x": True,
+        "upgrading": True,
     },
     "keel-init": {
         "description": (
@@ -321,14 +392,17 @@ If the developer gave the ticket ID, the project description, or other instructi
        3. Does the project have a user interface (yes or no)?
 
 3. **Create the required files** in numbered order from `templates/` (guidance for each file: `templates/README.md`). Create optional files only where the table says they are needed now, such as `docs/DESIGN.md` for a project with a UI. Follow the folder layout exactly.
-4. **Write the docs check script** and add its row to the area map (see *Docs check and drift report*).
-5. **Run the Initialization checklist** at the end of this file and report any item that fails.
+4. **Write the docs check script** and add its row to the area map (see *Docs check and drift report*). When you fill the Testing section of `docs/ARCHITECTURE.md`, ask the stronger checks question at the end of this file.
+5. **Run the Initialization checklist** below and report any item that fails.
 6. **Offer** the as-built review (`keel-as-built`) if the project has code, then the SPEC interview (`keel-interview`).
 
-Never overwrite a file that already exists; merge or ask. The rest of this file is the part of the standard that a new setup needs.
+Never overwrite a file that already exists; merge or ask. The rest of this file is the part of the standard that a new setup needs. {rules_note}
 """,
-        "inline": ["Initialization rules", "Folder layout", "The documentation files", "Project skills", "Linking to the project tracker", "Risk classes", "Rules", "Docs check and drift report", "Initialization checklist"],
+        "inline": ["Initialization rules", "Folder layout", "The documentation files", "Linking to the project tracker", "Docs check and drift report", "Initialization checklist"],
+        "extracts": [STRONGER_CHECKS],
+        "replace_bullets": [AS_BUILT_POINTER],
         "references": {
+            "rules.md": RULES_SECTIONS,
             "reviews.md": [REVIEWS],
             "migration.md": ["Migrating or upgrading an existing project"],
         },
@@ -348,24 +422,28 @@ Never overwrite a file that already exists; merge or ask. The rest of this file 
 
 Bring an existing project up to KEEL version {version} ({date}), {repo}. Three cases:
 
-- **Migration:** the project has documentation in another form (a README, notes, rules files, an older wiki export). Follow *Migrating or upgrading an existing project* below, steps 1 to 9.
+- **Migration:** the project has documentation in another form (a README, notes, rules files, an older wiki export). Follow *Migrating or upgrading an existing project* below, steps 1 to 9. First read `references/files.md`: the folder layout, the documentation files, and the tracker link.
 - **Upgrade:** the project follows an older version of this standard (the stamp in `AGENTS.md` is older than {version}, or names *AI-PROJECT-DOCS-STANDARD*). Do steps 1, 8, and 9. `references/changelog.md` lists what changed in each version.
 - **Switch to the skill:** the project has `KEEL.md` in its root folder and the developer wants this skill to be the reference instead. Follow the Switch to the skill path in the Initialization rules below.
 
 If the developer gave instructions with the command, follow them: $ARGUMENTS
 
-Whatever the case, change nothing until the developer approves the plan. Change only documentation, never code, configuration, or dependencies; the docs check script is the one exception. Use the templates in `templates/` (guidance: `templates/README.md`). When the work is complete, run `references/checklist.md`, report, and offer the as-built review (`keel-as-built`) and the SPEC interview (`keel-interview`).
+Whatever the case, change nothing until the developer approves the plan. Change only documentation, never code, configuration, or dependencies. The 2 exceptions are the docs check script and `.gitignore` (rule 7). Use the templates in `templates/` (guidance: `templates/README.md`). When the work is complete, run `references/checklist.md`, report, and make the offers that the After the path rule names: the as-built review (`keel-as-built`) and the SPEC interview (`keel-interview`).
 
-The rest of this file holds the initialization rules, the migration and upgrade steps, and the parts of the standard they rely on.
+The rest of this file holds the initialization rules, the migration and upgrade steps, authority, the docs check, and the stronger checks question. {rules_note}
 """,
-        "inline": ["Initialization rules", "Migrating or upgrading an existing project", "Authority and file handling", "Folder layout", "The documentation files", "Project skills", "Linking to the project tracker", "Risk classes", "Rules", "Docs check and drift report"],
+        "inline": ["Initialization rules", "Migrating or upgrading an existing project", "Authority and file handling", "Docs check and drift report"],
+        "extracts": [STRONGER_CHECKS],
+        "replace_bullets": [AS_BUILT_POINTER],
         "references": {
+            "files.md": FILES_SECTIONS,
+            "rules.md": RULES_SECTIONS,
             "checklist.md": ["Initialization checklist"],
             "changelog.md": ["Changelog"],
             "reviews.md": [REVIEWS],
         },
         "templates": "all",
-        "upgrading_1x": True,
+        "upgrading": True,
     },
     "keel-check": {
         "description": (
@@ -394,7 +472,7 @@ If the developer gave instructions with the command, follow them: $ARGUMENTS
 ## Steps
 
 1. **Confirm the project uses KEEL.** `AGENTS.md` has an `Aligned to KEEL` stamp (or an older *AI-PROJECT-DOCS-STANDARD* stamp). If not, stop and tell the developer to run `keel` first.
-2. **Docs check.** Find the script in the area map row *Docs* in `docs/ARCHITECTURE.md`. If it does not exist, write it as the definition below says (the project's own language, no new dependency, the list of checks in its header comment, results to `test-results/docs.md`), add its row to the area map and its command to the Testing section, then run it. If it exists, run it and compare its header comment with the list below; propose any missing check to the developer before you add it. Report the result from `test-results/docs.md`, with the exit code. Never weaken a check to make it pass.
+2. **Docs check.** Find the script in the area map row *Docs* in `docs/ARCHITECTURE.md`. If it does not exist, write it as the definition below says (the project's own language, no new dependency, the list of checks in its header comment, results to `test-results/docs.md`), add its row to the area map and its command to the Testing section, then run it. If it exists, run it and compare its header comment with the list below; propose any missing check to the developer before you add it. If the script reports that it is from an older KEEL version than the stamp in `AGENTS.md`, update it to the list below first. Report the result from `test-results/docs.md`, with the exit code. Never weaken a check to make it pass.
 3. **Drift report.** Write it as the definition below says: each finding with its certainty, never averaged. It changes nothing. Put it in the task summary; lasting findings go to `docs/RESEARCH.md` (create it from the standard if needed).
 4. **Report** with the task summary from the `docs/PLAN.md` Definition of done. A check you could not run is "Not run: reason", never passed.
 
@@ -494,7 +572,7 @@ def yaml_str(s: str) -> str:
 def build_skill(name: str, spec: dict, sections: dict[str, str], templates: list[dict], tintro: str, version: str, date: str) -> dict[str, str]:
     """Return {relative path: content} for one skill folder."""
     files: dict[str, str] = {}
-    fmt = dict(version=version, date=date, repo=REPO_URL)
+    fmt = dict(version=version, date=date, repo=REPO_URL, rules_note=RULES_NOTE)
 
     # Where each section lives, for cross-references.
     section_files: dict[str, str] = {}
@@ -504,8 +582,8 @@ def build_skill(name: str, spec: dict, sections: dict[str, str], templates: list
         for title in titles:
             section_files.setdefault(title, f"references/{fname}")
     for title, kind, label in spec.get("inline_extra", []):
-        pass  # extracts, not whole sections
-    if spec.get("upgrading_1x"):
+        section_files[f"__inline__{label}"] = "inline"  # extracts, not whole sections
+    if spec.get("upgrading"):
         section_files[UPGRADING_KEY] = "yes"
 
     # Frontmatter.
@@ -530,7 +608,13 @@ def build_skill(name: str, spec: dict, sections: dict[str, str], templates: list
             text = "\n".join(lines)
         body += [adapt(text, section_files), ""]
     for title in spec["inline"]:
-        body += [f"## {title}", "", adapt(sections[title], section_files), ""]
+        text = sections[title]
+        for rtitle, label, new in spec.get("replace_bullets", []):
+            if rtitle == title:
+                text = text.replace(top_bullet(text, label), new.format(**fmt))
+        body += [f"## {title}", "", adapt(text, section_files), ""]
+    for heading, title, label in spec.get("extracts", []):
+        body += [f"## {heading}", "", adapt(rule_bullet(sections[title], label), section_files), ""]
     body += ["---", "", COMMON_NOTE.format(repo=REPO_URL)]
     files["SKILL.md"] = "\n".join(fm) + "\n".join(body)
 
@@ -555,9 +639,10 @@ def build_skill(name: str, spec: dict, sections: dict[str, str], templates: list
             readme += [adapt(t["guidance"], section_files), ""]
     files["templates/README.md"] = "\n".join(readme).rstrip() + "\n"
 
-    # The 1.x upgrade blocks, for the skills that upgrade projects.
-    if spec.get("upgrading_1x"):
-        files[f"references/{UPGRADING_REF}"] = (ROOT / UPGRADING_FILE).read_text(encoding="utf-8")
+    # The version blocks up to 2.1.2, for the skills that upgrade projects.
+    if spec.get("upgrading"):
+        for fname in UPGRADING_FILES:
+            files[f"references/{fname.lower()}"] = (ROOT / fname).read_text(encoding="utf-8")
     return files
 
 
@@ -617,6 +702,9 @@ def generate() -> dict[str, str]:
     if missing:
         sys.exit(f"build: KEEL.md is missing the section(s) {missing}; update build.py if a heading changed")
     tintro, templates = parse_templates(sections["Starter templates"])
+    agents_words = sum(len(t["body"].split()) for t in templates if t["path"] == "AGENTS.md")
+    if not 0 < agents_words <= AGENTS_TEMPLATE_BUDGET:
+        sys.exit(f"build: the AGENTS.md template has {agents_words} words; the budget is {AGENTS_TEMPLATE_BUDGET} (KEEL.md rule 8). Cut or move a line.")
     out: dict[str, str] = {}
     for name in SKILL_NAMES:
         for rel, content in build_skill(name, SKILL_INTROS[name], sections, templates, tintro, version, date).items():

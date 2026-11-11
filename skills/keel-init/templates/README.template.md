@@ -16,4 +16,4 @@
 - Report issues: (where, such as the tracker project or a contact)
 
 ## Docs
-See the `docs/` folder. `AGENTS.md` has the current list of documentation files and what each one is for.
+See the `docs/` folder: `SPEC.md` (what and why), `ARCHITECTURE.md` (how), and `PLAN.md` (the work).

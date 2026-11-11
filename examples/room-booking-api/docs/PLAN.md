@@ -21,8 +21,8 @@ Before calling a task done:
 
       Changed: (files)
       Class: (Small / Shared / Release)
-      Tested: (command -> pass/fail counts; results file)
-      Reviewed: (fresh-context result for a Shared change, or n/a)
+      Tested: (command -> pass/fail counts; results file; a check you could not run is "Not run: reason", never passed)
+      Reviewed: (fresh-context result for a Shared change, or n/a; a dismissed finding cites the file and line that shows it is wrong)
       Docs updated: (files) | Docs checked, no change: (files; search terms used)
       Proposed: (PROPOSED blocks by file and AC ID or heading)
       Decided without asking: (one line each)
@@ -30,8 +30,8 @@ Before calling a task done:
       Next: (one action)
 
 - Result matches the ready card, if there was one; anything outside it is reported, not done
-- Code is readable and documented per the AGENTS.md rules
-- Affected docs updated, as listed in the AGENTS.md Docs list (SPEC and DESIGN changes written as PROPOSED blocks; all other docs updated directly)
+- Code is readable and documented per the AGENTS.md Conventions
+- Affected docs updated (SPEC and DESIGN changes written as PROPOSED blocks; all other docs updated directly)
 - RELEASE-CHECKLIST.md updated if acceptance criteria changed
 - `.env.example` updated if environment variables changed
 - AGENTS.md Docs and Skills lists updated if files or skills changed

@@ -3,6 +3,10 @@
 # Mockup instructions
 This file applies only to mockups and prototypes. It does not override `SPEC.md` or `DESIGN.md`.
 
+## When to make mockups
+- For a UI, layout, or copy change that is not small, show 2 or 3 different static mockups for review before you edit real components.
+- Mock only what does not exist yet. For a component that exists, show the real component, for example in the project's component viewer.
+
 ## Baseline (example)
 - Create each mockup as a single-screen, 16:9 SVG.
 - Start with a clean, uncluttered pencil-wireframe style using an off-white background and dark gray strokes.

@@ -1,14 +1,14 @@
-# KEEL 2.1.2: reviews
+# KEEL 2.2.0: reviews
 
 Reference for the `keel-as-built` skill, generated from `KEEL.md` (https://github.com/rickflashman/keel). Do not edit by hand.
 
 ## Cross-compare review and docs cleanup
 
-These 2 reviews read every doc, and the cross-compare review also reads the code. They use many tokens, so they run only when the developer asks. Never start one on your own. Only 2 places mention them unasked: the 1 line at the end of an as-built review (Initialization rules), and the report of an upgrade to 2.1.0. Use a subagent per doc or per area where the tool allows, so the main context stays small.
+These 2 reviews read every doc, and the cross-compare review also reads the code. They use many tokens, so they run only when the developer asks. Never start one on your own. Only 2 places mention them unasked: the 1 line at the end of an as-built review (Initialization rules), and 1 line in the report of an upgrade from a version before 2.1.0. Use a subagent per doc or per area where the tool allows, so the main context stays small.
 
 **Cross-compare review** ("run a cross-compare review"): a full comparison of all the docs with each other and with the code. It is most useful after a migration or an as-built review, when much of the content is new or inferred.
 
-1. Read every doc in the `AGENTS.md` Docs list, and the code of each area in the area map.
+1. Read every doc that the project uses (the files from this standard that exist, and the files on the Kept as is line of `AGENTS.md`), and the code of each area in the area map.
 2. Report each finding in a table, with the files and sections involved:
 
    | Finding | Example |

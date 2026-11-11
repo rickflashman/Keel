@@ -15,4 +15,4 @@ A small HTTP API that lets staff book meeting rooms for a time slot. The API che
 - Report issues: GitHub issues in example-org/room-booking, label `booking-api`
 
 ## Docs
-See the `docs/` folder. `AGENTS.md` has the current list of documentation files and what each one is for.
+See the `docs/` folder: `SPEC.md` (what and why), `ARCHITECTURE.md` (how), and `PLAN.md` (the work).

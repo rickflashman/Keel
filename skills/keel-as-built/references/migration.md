@@ -1,4 +1,4 @@
-# KEEL 2.1.1: migration
+# KEEL 2.1.2: migration
 
 Reference for the `keel-as-built` skill, generated from `KEEL.md` (https://github.com/rickflashman/keel). Do not edit by hand.
 
@@ -56,4 +56,9 @@ Use this section when the project already has documentation: another format, a s
      5. Docs check: use the caps of rule 8 in checks 1 and 2 (`AGENTS.md`: a warning above 120 lines or 1,200 words, a failure above 140 lines or 1,500 words; handoff: a warning above 40 lines, a failure above 50). Add the carry count to check 2, and the root folder files and the Kept as is line to check 5. Update the script's header comment. Run it. Report any root doc files it finds, and offer to absorb them.
      6. Tell the developer that the cross-compare review and the docs cleanup are available on request.
    - **2.1.0 to 2.1.1:** In `AGENTS.md` Conventions, add the 2 default code rules from the template (no clever or compressed code; header and doc comments), unless the project already has rules that cover them or the developer removed them on purpose. Set the stamp to `Aligned to KEEL 2.1.1 (https://github.com/rickflashman/keel)`.
+   - **2.1.1 to 2.1.2:** Add the new lines directly once the developer approves the plan. Change no accepted SPEC or DESIGN text.
+     1. `AGENTS.md`: in Making changes, add the question line as the first bullet. In Always / Never, add the Ask first line. In Conventions, add "update comments with the code" to the comment rule, if the project still has that rule, and `Unless:` to the rule form line. In Session handoff, replace the last bullet with its 2.1.2 version; the cap and the bullet rules are now only in the handoff file header. Set the stamp to `Aligned to KEEL 2.1.2 (https://github.com/rickflashman/keel)`.
+     2. Each handoff file: replace the "Session handoff only" line and the "Close routine" line in the header with their 2.1.2 versions.
+     3. `PLAN.md`: in the Definition of done, replace the line that introduces the task summary with its 2.1.2 version.
+     4. `MOCKUP.md` (when used): no change. The Baseline is an example, and the project's own text stays.
 9. **Report** what moved where, what was inferred, which Superseded content was not migrated and what replaced it, what was left unmapped, and any conflicts. Also list, with file names, each superseded approach that the code still appears to use (possible dead code or an unfinished change). Run the Initialization checklist and mark any item that does not pass. Then continue with *After the path* (Initialization rules).

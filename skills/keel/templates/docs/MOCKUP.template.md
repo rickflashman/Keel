@@ -8,7 +8,7 @@ This file applies only to mockups and prototypes. It does not override `SPEC.md`
 - Start with a clean, uncluttered pencil-wireframe style using an off-white background and dark gray strokes.
 - Light green may be used for callouts that are not part of the interface.
 - Use specified colors when color is important to the design.
-- Use realistic temporary content based on the vacation resorts, vacations, timeshare, and hospitality industry.
+- Use realistic temporary content from the project's own domain, with the terms from the SPEC Glossary.
 
 ## Project-specific instructions
 Add mockup-specific decisions and user feedback here as the mockups evolve.

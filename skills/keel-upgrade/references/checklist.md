@@ -1,4 +1,4 @@
-# KEEL 2.1.1: checklist
+# KEEL 2.1.2: checklist
 
 Reference for the `keel-upgrade` skill, generated from `KEEL.md` (https://github.com/rickflashman/keel). Do not edit by hand.
 

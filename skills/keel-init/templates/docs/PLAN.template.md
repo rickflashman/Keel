@@ -17,7 +17,7 @@ Before calling a task done:
 - Tests added/updated; targeted tests and the docs check pass, plus affected areas if other code uses the changed code (see the AGENTS.md Testing section; no full regression unless it calls for one)
 - Shared change: fresh-context review of the diff against the ACs done; findings fixed or listed
 - Area map in ARCHITECTURE.md updated if code, tests, or areas changed
-- Task summary in this shape, every line present ("none" if empty):
+- Task summary in this shape, every line present ("none" if empty), written for a reader who did not see the session (full paths, Glossary terms, no terms invented during the work):
 
       Changed: (files)
       Class: (Small / Shared / Release)

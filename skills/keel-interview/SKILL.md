@@ -1,14 +1,14 @@
 ---
 name: keel-interview
-description: "KEEL 2.1.1 SPEC interview: asks the developer a few questions at a time about the gaps in docs/SPEC.md (edge cases, non-goals, trade-offs, constraints, glossary terms, acceptance criteria) and writes the answers as PROPOSED blocks for acceptance. Use in a KEEL project when the developer runs keel-interview (/keel:keel-interview or /keel-interview), asks to interview them about the spec, or wants to fill the gaps in SPEC.md."
+description: "KEEL 2.1.2 SPEC interview: asks the developer a few questions at a time about the gaps in docs/SPEC.md (edge cases, non-goals, trade-offs, constraints, glossary terms, acceptance criteria) and writes the answers as PROPOSED blocks for acceptance. Use in a KEEL project when the developer runs keel-interview (/keel:keel-interview or /keel-interview), asks to interview them about the spec, or wants to fill the gaps in SPEC.md."
 argument-hint: "[feature or area to focus on]"
 metadata:
-  version: "2.1.1"
+  version: "2.1.2"
   source: "https://github.com/rickflashman/keel"
 ---
-# KEEL 2.1.1: SPEC interview
+# KEEL 2.1.2: SPEC interview
 
-Fill the gaps in `docs/SPEC.md` by interviewing the developer, under KEEL version 2.1.1 (November 7, 2026), https://github.com/rickflashman/keel.
+Fill the gaps in `docs/SPEC.md` by interviewing the developer, under KEEL version 2.1.2 (November 11, 2026), https://github.com/rickflashman/keel.
 
 If the developer gave instructions with the command, such as a feature to focus on, follow them: $ARGUMENTS
 

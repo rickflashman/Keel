@@ -8,7 +8,7 @@
 
 Like the keel of a ship, it keeps a project steady and on course when the AI tool, the AI model, or the developer changes.
 
-[![Version](https://img.shields.io/badge/version-2.1.1-1f4e8c)](https://github.com/rickflashman/keel/releases)
+[![Version](https://img.shields.io/badge/version-2.1.2-1f4e8c)](https://github.com/rickflashman/keel/releases)
 [![License: MIT](https://img.shields.io/badge/license-MIT-1e6b3a)](LICENSE)
 [![Works with](https://img.shields.io/badge/works%20with-Claude%20Code%20%7C%20Codex%20%7C%20Cursor%20%7C%20Copilot-4f5b6b)](#install)
 
@@ -43,13 +43,15 @@ The full standard is one file: [`KEEL.md`](KEEL.md). It is both a guide for deve
 Version 2.1 comes from the first round of public feedback on 2.0.0. In short:
 
 - **Handoffs cannot hide old work.** The docs check now catches a handoff note that is copied into the next session with a new date. Unfinished work moves to the work board, where it stays visible.
-- **A smaller `AGENTS.md`.** The file that the AI loads in every session is about 27% shorter, and it now has a word limit as well as a line limit.
+- **A smaller `AGENTS.md`.** The file that the AI loads in every session is about 13% shorter, and it now has a word limit as well as a line limit.
 - **Docs stay in one place.** A notes file or Word document that appears after setup can be moved into the KEEL docs and archived, instead of being linked.
 - **2 new reviews, on request only:** a cross-compare review that finds docs that disagree with each other or with the code, and a docs cleanup that removes repetition and old history.
 - **Small additions:** a date on each decision, a start routine for each session, an "Environment facts" section for things the AI cannot guess, a reason with each project rule, and permission to accept several proposed changes at once.
 - **Easier to learn:** an [example project](examples/room-booking-api/), clearer wording throughout, and the old 1.x upgrade steps moved out of `KEEL.md`.
 
 Version 2.1.1 adds dropped default code rules to the `AGENTS.md` template.
+
+Version 2.1.2 adds 4 small rules: a question gets an answer, not a change; the AI asks before a destructive action that you did not request; a project rule can carry its exception; and the task summary and the handoff are written for a reader who did not see the session.
 
 Projects on 2.0.0 upgrade with `/keel:keel-upgrade`, or by telling the AI: *"Read KEEL.md and do what it says."*
 

@@ -384,7 +384,7 @@ If the developer gave the ticket ID, the project description, or other instructi
 ## Steps
 
 1. **Check first.** Follow the Check first rule below. If the path is not *New setup*, stop and tell the developer to run `keel-upgrade` (migration or upgrade) or `keel` (any path). Do not continue with a project that already has docs.
-2. **Ask before you create any file.** Send this message, with all 3 questions, as plain chat text, and wait for the answer. Do not use a question tool or form: the answers are free text. Skip only a question the developer already answered with the command. Never take the project name from the folder name. If the developer does not answer an item, leave its placeholder (see *Linking to the project tracker*).
+2. **Ask before you create any file.** Ask these 3 questions together, and wait for the answers. If the AI tool has an interactive question tool, use it: 1 question for each item, with free text for items 1 and 2, and the choices Yes and No for item 3. If it has no such tool, send this message as plain chat text. Skip only a question the developer already answered with the command. Never take the project name from the folder name. If the developer does not answer an item, leave its placeholder (see *Linking to the project tracker*).
 
        Before I create the files, 3 questions:
        1. Tracker and ticket ID, with the ticket link if you have one (or "none"):
@@ -392,9 +392,9 @@ If the developer gave the ticket ID, the project description, or other instructi
        3. Does the project have a user interface (yes or no)?
 
 3. **Create the required files** in numbered order from `templates/` (guidance for each file: `templates/README.md`). Create optional files only where the table says they are needed now, such as `docs/DESIGN.md` for a project with a UI. Follow the folder layout exactly.
-4. **Write the docs check script** and add its row to the area map (see *Docs check and drift report*). When you fill the Testing section of `docs/ARCHITECTURE.md`, ask the stronger checks question at the end of this file.
+4. **Write the docs check script** and add its row to the area map (see *Docs check and drift report*). When you fill the Testing section of `docs/ARCHITECTURE.md`, ask the stronger checks question at the end of this file. Show all 3 options and wait for the developer's choice; never choose for the developer.
 5. **Run the Initialization checklist** below and report any item that fails.
-6. **Offer** the as-built review (`keel-as-built`) if the project has code, then the SPEC interview (`keel-interview`).
+6. **Ask about the offers** as direct questions, and wait for each answer (see After the path): the as-built review (`keel-as-built`) if the project has code, then always the SPEC interview (`keel-interview`).
 
 Never overwrite a file that already exists; merge or ask. The rest of this file is the part of the standard that a new setup needs. {rules_note}
 """,

@@ -1,4 +1,4 @@
-# KEEL 2.2.0: changelog
+# KEEL 2.2.1: changelog
 
 Reference for the `keel-upgrade` skill, generated from `KEEL.md` (https://github.com/rickflashman/keel). Do not edit by hand.
 
@@ -6,6 +6,8 @@ Reference for the `keel-upgrade` skill, generated from `KEEL.md` (https://github
 
 Add a new entry at the top for each update, with its version and date, and update the version stamp in the `AGENTS.md` template to match. Keep an entry short: a summary of 2 to 4 sentences. From 2.2.0, the upgrade rule reads 2 more lines (step 8 of *Migrating or upgrading an existing project*), so add each one when it applies. The Templates changed line names each template file, with the heading or the lines that changed; it does not repeat the new text, because the template has it. The Docs check line names each changed check.
 
+- **2.2.1 (November 12, 2026):** Fixes from a test of 2.2.0 on a new project. The AI asks the setup questions and the stronger checks question with the AI tool's interactive question tool when it has one. For the stronger checks question, it shows all 3 options and waits for a choice. It asks about the SPEC interview after every New setup and every Migration, and every ready card ends with an approval question (rule 10).
+  - **Templates changed:** `PLAN.md` (Definition of ready: a new approval question as the last line of the card).
 - **2.2.0 (November 11, 2026):** One general upgrade rule replaces the steps for each version (step 8 of *Migrating or upgrading an existing project*); the version blocks up to 2.1.2 are in `references/upgrading-2.x.md`. The `AGENTS.md` template is about 14% smaller and has a budget of 1,100 words (rule 8). The skills are smaller. New: a *Personal rules files* paragraph, a rule on deliberate blockers (rule 4), and exact definitions for the docs checks.
   - **Templates changed:** `AGENTS.md` (every section; the Docs list is shorter, and the Skills section is optional). `PLAN.md` (Definition of done: the Tested, Reviewed, and Affected docs lines). The handoff file (the Close routine line at the top). `README.md` (the Docs line). `.github/copilot-instructions.md` (the pointer lines). `MOCKUP.md` (a new "When to make mockups" heading). `CLAUDE.md` (a new optional note).
   - **Docs check:** every check has a new definition. Replace the whole list in the header comment, and add its first line, `Docs check for KEEL 2.2.0`.

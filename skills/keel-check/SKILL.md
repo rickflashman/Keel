@@ -1,14 +1,14 @@
 ---
 name: keel-check
-description: "KEEL 2.2.0 docs check, drift report, and on-request reviews. Writes or runs the project's docs check script (AGENTS.md size and stamp, handoff size and carried bullets, AC coverage in the release checklist, broken paths and links, unlisted docs, headers, stray doc versions, stale PROPOSED blocks, secrets) and writes the read-only drift report (SPEC with no code, code with no SPEC, ACs with no test, stale doc sections). Only when the developer asks: a cross-compare review of all docs and the code, or a docs cleanup. Use in a KEEL project when the developer runs keel-check (/keel:keel-check or /keel-check), says 'run the docs check', 'run a drift report', 'run a cross-compare review', 'run a docs cleanup', or before a release."
+description: "KEEL 2.2.1 docs check, drift report, and on-request reviews. Writes or runs the project's docs check script (AGENTS.md size and stamp, handoff size and carried bullets, AC coverage in the release checklist, broken paths and links, unlisted docs, headers, stray doc versions, stale PROPOSED blocks, secrets) and writes the read-only drift report (SPEC with no code, code with no SPEC, ACs with no test, stale doc sections). Only when the developer asks: a cross-compare review of all docs and the code, or a docs cleanup. Use in a KEEL project when the developer runs keel-check (/keel:keel-check or /keel-check), says 'run the docs check', 'run a drift report', 'run a cross-compare review', 'run a docs cleanup', or before a release."
 argument-hint: "[docs | drift | both | cross-compare | cleanup]"
 metadata:
-  version: "2.2.0"
+  version: "2.2.1"
   source: "https://github.com/rickflashman/keel"
 ---
-# KEEL 2.2.0: docs check, drift report, and on-request reviews
+# KEEL 2.2.1: docs check, drift report, and on-request reviews
 
-Run the documentation checks of KEEL version 2.2.0 (November 11, 2026), https://github.com/rickflashman/keel. All of them are defined below.
+Run the documentation checks of KEEL version 2.2.1 (November 12, 2026), https://github.com/rickflashman/keel. All of them are defined below.
 
 If the developer gave instructions with the command, follow them: $ARGUMENTS
 

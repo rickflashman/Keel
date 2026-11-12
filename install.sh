@@ -11,7 +11,7 @@
 #   sh install.sh --project           into the current project: .agents/skills and .claude/skills
 #   sh install.sh --remove            remove the KEEL skills from the chosen folders
 #   sh install.sh --source /path      use a local checkout instead of the cache (for development)
-#   sh install.sh --ref v2.2.0        install a tag or branch instead of main
+#   sh install.sh --ref v2.2.1        install a tag or branch instead of main
 #
 # From a clone, run: sh install.sh --source .
 # Without a clone, run:

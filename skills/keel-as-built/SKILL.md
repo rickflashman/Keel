@@ -1,14 +1,14 @@
 ---
 name: keel-as-built
-description: "KEEL 2.2.0 as-built review of existing code: feature inventory, area map in ARCHITECTURE.md, SPEC acceptance criteria inferred from the code as PROPOSED blocks, and a differences and health report (built but not specified, specified but not built, no tests, secrets, risky dependencies). Changes no code. Use in a KEEL project when the developer runs keel-as-built (/keel:keel-as-built or /keel-as-built) or asks for an as-built review, to document existing code, or to set the Verified dates."
+description: "KEEL 2.2.1 as-built review of existing code: feature inventory, area map in ARCHITECTURE.md, SPEC acceptance criteria inferred from the code as PROPOSED blocks, and a differences and health report (built but not specified, specified but not built, no tests, secrets, risky dependencies). Changes no code. Use in a KEEL project when the developer runs keel-as-built (/keel:keel-as-built or /keel-as-built) or asks for an as-built review, to document existing code, or to set the Verified dates."
 argument-hint: "[area names to review, or 'all']"
 metadata:
-  version: "2.2.0"
+  version: "2.2.1"
   source: "https://github.com/rickflashman/keel"
 ---
-# KEEL 2.2.0: as-built review
+# KEEL 2.2.1: as-built review
 
-Document what the code does now, under KEEL version 2.2.0 (November 11, 2026), https://github.com/rickflashman/keel. Change no code. Do not run tests unless the developer asks.
+Document what the code does now, under KEEL version 2.2.1 (November 12, 2026), https://github.com/rickflashman/keel. Change no code. Do not run tests unless the developer asks.
 
 If the developer gave instructions with the command, such as the areas to review, follow them: $ARGUMENTS
 

@@ -8,7 +8,7 @@
 
 Like the keel of a ship, it keeps a project steady and on course when the AI tool, the AI model, or the developer changes.
 
-[![Version](https://img.shields.io/badge/version-2.2.0-1f4e8c)](https://github.com/rickflashman/keel/releases)
+[![Version](https://img.shields.io/badge/version-2.2.1-1f4e8c)](https://github.com/rickflashman/keel/releases)
 [![License: MIT](https://img.shields.io/badge/license-MIT-1e6b3a)](LICENSE)
 [![Works with](https://img.shields.io/badge/works%20with-Claude%20Code%20%7C%20Codex%20%7C%20Cursor%20%7C%20Copilot-4f5b6b)](#install)
 
@@ -41,10 +41,11 @@ The full standard is one file: [`KEEL.md`](KEEL.md). It is both a guide for deve
 ## What's new in 2.2
 
 - **One upgrade rule.** To upgrade a project, the AI reads the changelog and compares each file with its current template. `KEEL.md` has no upgrade steps for each version now. The older steps are in [`UPGRADING-2.x.md`](UPGRADING-2.x.md).
-- **Smaller skills.** `SKILL.md` has about 55% fewer words in `keel`, 42% in `keel-upgrade`, and 18% in `keel-init`. A skill reads the working rules and the file descriptions only when its path needs them.
+- **Smaller skills.** `SKILL.md` has about 53% fewer words in `keel`, 40% in `keel-upgrade`, and 16% in `keel-init` than in 2.1.2. A skill reads the working rules and the file descriptions only when its path needs them.
 - **A smaller `AGENTS.md`.** The template is about 14% shorter than in 2.1.2. It has a budget of 1,100 words, so each project keeps 100 words for its own rules.
 - **Personal rules files.** A personal file, such as `~/.claude/CLAUDE.md`, stays outside the project. It is not migrated, and it does not override the project docs.
 - **Small rules:** the AI never works around a deliberate blocker, tests are removed with their acceptance criterion, and mockups come before a large UI change.
+- **2.2.1: clearer questions.** The AI asks the setup questions, the stronger checks question, and each offer with the AI tool's interactive question tool when it has one. It shows all 3 stronger checks options, always offers the SPEC interview after a setup or a migration, and ends every ready card with an approval question.
 
 To upgrade a project from an earlier version, run `/keel:keel-upgrade`, or tell the AI: *"Read KEEL.md and do what it says."*
 

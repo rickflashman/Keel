@@ -12,6 +12,8 @@ A Shared change, a change that touches several files, or a change whose approach
     Docs: (to update)
     Out of scope: (what this change will not do)
 
+    Do you approve this ready card? Reply "yes", or tell me what to change.
+
 ## Definition of done
 Before calling a task done:
 - Tests added/updated; targeted tests and the docs check pass, plus affected areas if other code uses the changed code (see the AGENTS.md Testing section; no full regression unless it calls for one)

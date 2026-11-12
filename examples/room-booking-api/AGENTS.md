@@ -2,7 +2,7 @@
 AI working rules for every AI tool on this project; CLAUDE.md and .github/copilot-instructions.md only point here. At most 120 lines and 1,200 words.
 
 ## Project documentation standard
-- Aligned to KEEL 2.2.0 (https://github.com/rickflashman/keel).
+- Aligned to KEEL 2.2.1 (https://github.com/rickflashman/keel).
 - Authority for the doc structure: `KEEL.md` in the project root, else the KEEL skill, else the existing docs; read it before you change that structure. Never change, move, or delete `KEEL.md` unasked.
 - Precedence, highest first: direct developer instruction > docs/decisions/ > SPEC.md and DESIGN.md (accepted text, not PROPOSED blocks) > ARCHITECTURE.md and PLAN.md > RUNBOOK.md, USER-GUIDE.md, and MOCKUP.md (mockups only) > HANDOFF.md and RESEARCH.md > CHANGELOG.md (history only) > the code (evidence only) > docs/archive/ (never a source).
 

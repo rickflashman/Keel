@@ -1,4 +1,4 @@
-# KEEL 2.2.0: migration
+# KEEL 2.2.1: migration
 
 Reference for the `keel-interview` skill, generated from `KEEL.md` (https://github.com/rickflashman/keel). Do not edit by hand.
 

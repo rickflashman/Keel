@@ -1,18 +1,18 @@
 ---
 name: keel-upgrade
-description: "KEEL 2.2.0 migration and upgrade: brings an existing project's documentation up to the KEEL standard (inventory, currency, mapping, approval, migrate, archive), upgrades a project on an older KEEL or AI-PROJECT-DOCS-STANDARD version, or switches a project from the KEEL.md file to this skill. Use when the developer runs keel-upgrade (/keel:keel-upgrade or /keel-upgrade), says 'migrate the docs to KEEL', 'upgrade KEEL', or 'switch to the KEEL skill'."
+description: "KEEL 2.2.1 migration and upgrade: brings an existing project's documentation up to the KEEL standard (inventory, currency, mapping, approval, migrate, archive), upgrades a project on an older KEEL or AI-PROJECT-DOCS-STANDARD version, or switches a project from the KEEL.md file to this skill. Use when the developer runs keel-upgrade (/keel:keel-upgrade or /keel-upgrade), says 'migrate the docs to KEEL', 'upgrade KEEL', or 'switch to the KEEL skill'."
 disable-model-invocation: true
 argument-hint: "[migrate | upgrade | switch]"
 metadata:
-  version: "2.2.0"
+  version: "2.2.1"
   source: "https://github.com/rickflashman/keel"
 ---
-# KEEL 2.2.0: migrate, upgrade, or switch
+# KEEL 2.2.1: migrate, upgrade, or switch
 
-Bring an existing project up to KEEL version 2.2.0 (November 11, 2026), https://github.com/rickflashman/keel. Three cases:
+Bring an existing project up to KEEL version 2.2.1 (November 12, 2026), https://github.com/rickflashman/keel. Three cases:
 
 - **Migration:** the project has documentation in another form (a README, notes, rules files, an older wiki export). Follow *Migrating or upgrading an existing project* below, steps 1 to 9. First read `references/files.md`: the folder layout, the documentation files, and the tracker link.
-- **Upgrade:** the project follows an older version of this standard (the stamp in `AGENTS.md` is older than 2.2.0, or names *AI-PROJECT-DOCS-STANDARD*). Do steps 1, 8, and 9. `references/changelog.md` lists what changed in each version.
+- **Upgrade:** the project follows an older version of this standard (the stamp in `AGENTS.md` is older than 2.2.1, or names *AI-PROJECT-DOCS-STANDARD*). Do steps 1, 8, and 9. `references/changelog.md` lists what changed in each version.
 - **Switch to the skill:** the project has `KEEL.md` in its root folder and the developer wants this skill to be the reference instead. Follow the Switch to the skill path in the Initialization rules below.
 
 If the developer gave instructions with the command, follow them: $ARGUMENTS
@@ -30,14 +30,16 @@ The rest of this file holds the initialization rules, the migration and upgrade 
   - **Switch to the skill:** the KEEL skill is running, `KEEL.md` is in the root folder, and the developer asked to switch. Run the Upgrade path first if the stamp is older than the skill's version. Then set the stamp to the skill's version and, only on the developer's explicit instruction, delete `KEEL.md` or move it where the developer says. Report what changed.
 
   If the root folder also holds `AI-PROJECT-DOCS-STANDARD.md`, it is an older version of this standard: follow this skill, and tell the developer. When the upgrade is complete, ask the developer once whether to delete the old file; do not delete, move, or archive it without that answer. Tell the developer which path you chose and why before you continue. If the stamp is this skill's version and there is nothing to bring in, say that the project is up to date, and stop.
-- **Missing information:** Before you create any file, send the developer this message, with all 3 questions, as plain chat text, and wait for the answer. Do not use a question tool or form: the answers are free text. Skip only a question the developer already answered. Never take the project name from the folder name. If the developer does not answer an item, leave its placeholder.
+- **Missing information:** Before you create any file, ask the developer these 3 questions together, and wait for the answers. If the AI tool has an interactive question tool, use it: 1 question for each item, with free text for items 1 and 2, and the choices Yes and No for item 3. If it has no such tool, send this message as plain chat text. Skip only a question the developer already answered. Never take the project name from the folder name. If the developer does not answer an item, leave its placeholder.
 
       Before I create the files, 3 questions:
       1. Tracker and ticket ID, with the ticket link if you have one (or "none"):
       2. Project name and a short description:
       3. Does the project have a user interface (yes or no)?
 - **Existing files:** Never overwrite a file or folder from this standard that already exists. Merge the new content in, or propose the change, and ask the developer first.
-- **After the path:** When the path is complete, run the Initialization checklist and report. Then, if the project has code, offer the as-built review. After an Upgrade, offer it only when `ARCHITECTURE.md` has no Verified date. After you seed or migrate `SPEC.md`, offer the SPEC interview; when you also offer the as-built review, offer the interview after it.
+- **After the path:** When the path is complete, run the Initialization checklist and report. Then make these offers. Ask each offer as a direct question, with the interactive question tool if the AI tool has one, and wait for the answer. A line in the report is not an offer.
+  1. **As-built review:** if the project has code. After an Upgrade, offer it only when `ARCHITECTURE.md` has no Verified date.
+  2. **SPEC interview:** after every New setup and every Migration, and after any path that seeds or migrates `SPEC.md`. When you also offer the as-built review, ask about the interview after the developer answers the first offer.
 - **As-built review:** A review of existing code, offered after the path for a project with code (see After the path). The developer may decline or choose only some areas. On approval, run the `keel-as-built` skill, which holds the steps. If that skill is not installed, follow the As-built review steps in the Initialization rules of `KEEL.md` (https://github.com/rickflashman/keel).
 - **SPEC interview:** Interview the developer about the gaps in `SPEC.md`: edge cases, non-goals, trade-offs, constraints, glossary terms, and acceptance criteria. Ask a few questions at a time, and skip questions the docs already answer. Write the resulting SPEC changes as PROPOSED blocks for acceptance (rule 1). The developer may decline.
 
@@ -136,7 +138,7 @@ The report goes in the task summary. Lasting findings go to `RESEARCH.md`. At a 
 
 ## The stronger checks question (rule 9)
 
-- **Stronger checks (optional):** for a Shared change or a release, the fresh-context reviewer may also test "what if" cases at the edges of the changed logic. Where the project has a mutation testing tool, it may run it on the changed code, to confirm that the new tests have real assertions. The developer decides whether the project uses these checks. Ask once, when you first fill the `ARCHITECTURE.md` Testing section (at setup or upgrade), with this message as plain chat text, and record the answer on its Stronger checks line:
+- **Stronger checks (optional):** for a Shared change or a release, the fresh-context reviewer may also test "what if" cases at the edges of the changed logic. Where the project has a mutation testing tool, it may run it on the changed code, to confirm that the new tests have real assertions. The developer decides whether the project uses these checks. Ask once, when you first fill the `ARCHITECTURE.md` Testing section (at setup or upgrade), and record the answer on its Stronger checks line. Show all 3 options, each with its description, and wait for the developer's choice. Do not choose an option for the developer, and do not ask the developer only to confirm 1 option. If the AI tool has an interactive question tool, use it, with 1 choice for each option. If it has no such tool, send this message as plain chat text:
 
       Optional stronger checks, for Shared changes and releases only:
       1. Not used (most common): the normal tests only.
@@ -148,7 +150,7 @@ The report goes in the task summary. Lasting findings go to `RESEARCH.md`. At a 
          prove that the tests catch it. Needs the tool; much slower.
       Which one (1, 2, or 3)? You can change it later.
 
-  If the developer does not answer, record option 2 and say so in the task summary.
+  If the developer tells you to continue without a choice, record option 2 and say so in the task summary.
 
 ---
 

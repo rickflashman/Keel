@@ -1,22 +1,22 @@
 ---
 name: keel-init
-description: "KEEL 2.2.0 new setup: creates the baseline docs for a project that has no documentation yet (README, docs/SPEC, ARCHITECTURE, PLAN, RELEASE-CHECKLIST, AGENTS.md, CLAUDE.md, copilot-instructions) from the KEEL templates, then runs the initialization checklist. Use when the developer runs keel-init (/keel:keel-init or /keel-init) or asks to initialize a new project with KEEL. For a project that already has docs, use keel-upgrade."
+description: "KEEL 2.2.1 new setup: creates the baseline docs for a project that has no documentation yet (README, docs/SPEC, ARCHITECTURE, PLAN, RELEASE-CHECKLIST, AGENTS.md, CLAUDE.md, copilot-instructions) from the KEEL templates, then runs the initialization checklist. Use when the developer runs keel-init (/keel:keel-init or /keel-init) or asks to initialize a new project with KEEL. For a project that already has docs, use keel-upgrade."
 disable-model-invocation: true
 argument-hint: "[ticket ID or project description]"
 metadata:
-  version: "2.2.0"
+  version: "2.2.1"
   source: "https://github.com/rickflashman/keel"
 ---
-# KEEL 2.2.0: new setup
+# KEEL 2.2.1: new setup
 
-Create the baseline documentation for a project that has no documentation yet. Version 2.2.0 (November 11, 2026), https://github.com/rickflashman/keel.
+Create the baseline documentation for a project that has no documentation yet. Version 2.2.1 (November 12, 2026), https://github.com/rickflashman/keel.
 
 If the developer gave the ticket ID, the project description, or other instructions with the command, use them: $ARGUMENTS
 
 ## Steps
 
 1. **Check first.** Follow the Check first rule below. If the path is not *New setup*, stop and tell the developer to run `keel-upgrade` (migration or upgrade) or `keel` (any path). Do not continue with a project that already has docs.
-2. **Ask before you create any file.** Send this message, with all 3 questions, as plain chat text, and wait for the answer. Do not use a question tool or form: the answers are free text. Skip only a question the developer already answered with the command. Never take the project name from the folder name. If the developer does not answer an item, leave its placeholder (see *Linking to the project tracker*).
+2. **Ask before you create any file.** Ask these 3 questions together, and wait for the answers. If the AI tool has an interactive question tool, use it: 1 question for each item, with free text for items 1 and 2, and the choices Yes and No for item 3. If it has no such tool, send this message as plain chat text. Skip only a question the developer already answered with the command. Never take the project name from the folder name. If the developer does not answer an item, leave its placeholder (see *Linking to the project tracker*).
 
        Before I create the files, 3 questions:
        1. Tracker and ticket ID, with the ticket link if you have one (or "none"):
@@ -24,9 +24,9 @@ If the developer gave the ticket ID, the project description, or other instructi
        3. Does the project have a user interface (yes or no)?
 
 3. **Create the required files** in numbered order from `templates/` (guidance for each file: `templates/README.md`). Create optional files only where the table says they are needed now, such as `docs/DESIGN.md` for a project with a UI. Follow the folder layout exactly.
-4. **Write the docs check script** and add its row to the area map (see *Docs check and drift report*). When you fill the Testing section of `docs/ARCHITECTURE.md`, ask the stronger checks question at the end of this file.
+4. **Write the docs check script** and add its row to the area map (see *Docs check and drift report*). When you fill the Testing section of `docs/ARCHITECTURE.md`, ask the stronger checks question at the end of this file. Show all 3 options and wait for the developer's choice; never choose for the developer.
 5. **Run the Initialization checklist** below and report any item that fails.
-6. **Offer** the as-built review (`keel-as-built`) if the project has code, then the SPEC interview (`keel-interview`).
+6. **Ask about the offers** as direct questions, and wait for each answer (see After the path): the as-built review (`keel-as-built`) if the project has code, then always the SPEC interview (`keel-interview`).
 
 Never overwrite a file that already exists; merge or ask. The rest of this file is the part of the standard that a new setup needs. The working rules (rule 1 to rule 11), the risk classes, and project skills are in `references/rules.md`. Read it only when a step or a template names a rule and you need its full text.
 
@@ -39,14 +39,16 @@ Never overwrite a file that already exists; merge or ask. The rest of this file 
   - **Switch to the skill:** the KEEL skill is running, `KEEL.md` is in the root folder, and the developer asked to switch. Run the Upgrade path first if the stamp is older than the skill's version. Then set the stamp to the skill's version and, only on the developer's explicit instruction, delete `KEEL.md` or move it where the developer says. Report what changed.
 
   If the root folder also holds `AI-PROJECT-DOCS-STANDARD.md`, it is an older version of this standard: follow this skill, and tell the developer. When the upgrade is complete, ask the developer once whether to delete the old file; do not delete, move, or archive it without that answer. Tell the developer which path you chose and why before you continue. If the stamp is this skill's version and there is nothing to bring in, say that the project is up to date, and stop.
-- **Missing information:** Before you create any file, send the developer this message, with all 3 questions, as plain chat text, and wait for the answer. Do not use a question tool or form: the answers are free text. Skip only a question the developer already answered. Never take the project name from the folder name. If the developer does not answer an item, leave its placeholder.
+- **Missing information:** Before you create any file, ask the developer these 3 questions together, and wait for the answers. If the AI tool has an interactive question tool, use it: 1 question for each item, with free text for items 1 and 2, and the choices Yes and No for item 3. If it has no such tool, send this message as plain chat text. Skip only a question the developer already answered. Never take the project name from the folder name. If the developer does not answer an item, leave its placeholder.
 
       Before I create the files, 3 questions:
       1. Tracker and ticket ID, with the ticket link if you have one (or "none"):
       2. Project name and a short description:
       3. Does the project have a user interface (yes or no)?
 - **Existing files:** Never overwrite a file or folder from this standard that already exists. Merge the new content in, or propose the change, and ask the developer first.
-- **After the path:** When the path is complete, run the Initialization checklist and report. Then, if the project has code, offer the as-built review. After an Upgrade, offer it only when `ARCHITECTURE.md` has no Verified date. After you seed or migrate `SPEC.md`, offer the SPEC interview; when you also offer the as-built review, offer the interview after it.
+- **After the path:** When the path is complete, run the Initialization checklist and report. Then make these offers. Ask each offer as a direct question, with the interactive question tool if the AI tool has one, and wait for the answer. A line in the report is not an offer.
+  1. **As-built review:** if the project has code. After an Upgrade, offer it only when `ARCHITECTURE.md` has no Verified date.
+  2. **SPEC interview:** after every New setup and every Migration, and after any path that seeds or migrates `SPEC.md`. When you also offer the as-built review, ask about the interview after the developer answers the first offer.
 - **As-built review:** A review of existing code, offered after the path for a project with code (see After the path). The developer may decline or choose only some areas. On approval, run the `keel-as-built` skill, which holds the steps. If that skill is not installed, follow the As-built review steps in the Initialization rules of `KEEL.md` (https://github.com/rickflashman/keel).
 - **SPEC interview:** Interview the developer about the gaps in `SPEC.md`: edge cases, non-goals, trade-offs, constraints, glossary terms, and acceptance criteria. Ask a few questions at a time, and skip questions the docs already answer. Write the resulting SPEC changes as PROPOSED blocks for acceptance (rule 1). The developer may decline.
 
@@ -237,7 +239,7 @@ After a new setup, a migration, or an upgrade, confirm each item and report any 
 
 ## The stronger checks question (rule 9)
 
-- **Stronger checks (optional):** for a Shared change or a release, the fresh-context reviewer may also test "what if" cases at the edges of the changed logic. Where the project has a mutation testing tool, it may run it on the changed code, to confirm that the new tests have real assertions. The developer decides whether the project uses these checks. Ask once, when you first fill the `ARCHITECTURE.md` Testing section (at setup or upgrade), with this message as plain chat text, and record the answer on its Stronger checks line:
+- **Stronger checks (optional):** for a Shared change or a release, the fresh-context reviewer may also test "what if" cases at the edges of the changed logic. Where the project has a mutation testing tool, it may run it on the changed code, to confirm that the new tests have real assertions. The developer decides whether the project uses these checks. Ask once, when you first fill the `ARCHITECTURE.md` Testing section (at setup or upgrade), and record the answer on its Stronger checks line. Show all 3 options, each with its description, and wait for the developer's choice. Do not choose an option for the developer, and do not ask the developer only to confirm 1 option. If the AI tool has an interactive question tool, use it, with 1 choice for each option. If it has no such tool, send this message as plain chat text:
 
       Optional stronger checks, for Shared changes and releases only:
       1. Not used (most common): the normal tests only.
@@ -249,7 +251,7 @@ After a new setup, a migration, or an upgrade, confirm each item and report any 
          prove that the tests catch it. Needs the tool; much slower.
       Which one (1, 2, or 3)? You can change it later.
 
-  If the developer does not answer, record option 2 and say so in the task summary.
+  If the developer tells you to continue without a choice, record option 2 and say so in the task summary.
 
 ---
 

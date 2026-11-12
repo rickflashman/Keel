@@ -2,7 +2,7 @@
 
 A documentation and working standard for AI-developed projects.
 
-Version 2.2.0 (November 11, 2026) - Rick Flashman. Formerly the AI Project Documentation Standard (1.0.0 to 1.5.1).
+Version 2.2.1 (November 12, 2026) - Rick Flashman. Formerly the AI Project Documentation Standard (1.0.0 to 1.5.1).
 
 ## Overview
 
@@ -62,14 +62,16 @@ When `KEEL.md` is absent and the KEEL skill is installed, the skill is the refer
   - **Switch to the skill:** the KEEL skill is running, `KEEL.md` is in the root folder, and the developer asked to switch. Run the Upgrade path first if the stamp is older than the skill's version. Then set the stamp to the skill's version and, only on the developer's explicit instruction, delete `KEEL.md` or move it where the developer says. Report what changed.
 
   If the root folder also holds `AI-PROJECT-DOCS-STANDARD.md`, it is an older version of this document: follow this file, and tell the developer. When the upgrade is complete, ask the developer once whether to delete the old file; do not delete, move, or archive it without that answer. Tell the developer which path you chose and why before you continue. If the stamp is this document's version and there is nothing to bring in, say that the project is up to date, and stop.
-- **Missing information:** Before you create any file, send the developer this message, with all 3 questions, as plain chat text, and wait for the answer. Do not use a question tool or form: the answers are free text. Skip only a question the developer already answered. Never take the project name from the folder name. If the developer does not answer an item, leave its placeholder.
+- **Missing information:** Before you create any file, ask the developer these 3 questions together, and wait for the answers. If the AI tool has an interactive question tool, use it: 1 question for each item, with free text for items 1 and 2, and the choices Yes and No for item 3. If it has no such tool, send this message as plain chat text. Skip only a question the developer already answered. Never take the project name from the folder name. If the developer does not answer an item, leave its placeholder.
 
       Before I create the files, 3 questions:
       1. Tracker and ticket ID, with the ticket link if you have one (or "none"):
       2. Project name and a short description:
       3. Does the project have a user interface (yes or no)?
 - **Existing files:** Never overwrite a file or folder from this document that already exists. Merge the new content in, or propose the change, and ask the developer first.
-- **After the path:** When the path is complete, run the Initialization checklist and report. Then, if the project has code, offer the as-built review. After an Upgrade, offer it only when `ARCHITECTURE.md` has no Verified date. After you seed or migrate `SPEC.md`, offer the SPEC interview; when you also offer the as-built review, offer the interview after it.
+- **After the path:** When the path is complete, run the Initialization checklist and report. Then make these offers. Ask each offer as a direct question, with the interactive question tool if the AI tool has one, and wait for the answer. A line in the report is not an offer.
+  1. **As-built review:** if the project has code. After an Upgrade, offer it only when `ARCHITECTURE.md` has no Verified date.
+  2. **SPEC interview:** after every New setup and every Migration, and after any path that seeds or migrates `SPEC.md`. When you also offer the as-built review, ask about the interview after the developer answers the first offer.
 - **As-built review:** A review of existing code, offered after the path for a project with code (see After the path). The developer may decline or choose only some areas. On approval, follow these steps in order:
   1. **Feature inventory.** List the features the code implements, each with its entry points (routes, commands, screens, jobs, public modules) and folders. Show the list. The developer confirms, renames, merges, or drops items. Do not read deeper until the list is confirmed.
   2. **Area map.** Fill the area map in `ARCHITECTURE.md` for the confirmed areas: code, entry points, tests, command, dependencies (from imports). Set Confidence to Inferred on every row, and mark the table "Inferred from code, needs developer review".
@@ -284,7 +286,7 @@ Every change gets 1 class before work starts. The class is defined here once; ru
    - **Full regression:** the whole test suite, the docs check, and every release check. Run it before every release (rule 6) and when the developer asks. For any other reason, ask the developer first and explain why; a Shared change with a wide reach is the typical reason.
    - **Scripted first:** run the saved test commands from the area map. Each run writes a short results file, `test-results/latest.md`: what ran, the pass and fail counts, and details for failures only. The docs check writes `test-results/docs.md` instead, so both results survive the same task. Attach screenshots only for failures or visual checks. Check the exit code and the counts, not only a "passed" line. Test interactively only to debug a failure, to explore a new check before you script it, or for visual checks.
    - **Saved scripts only:** use the project's test framework when it has one. Save each new test script in the project and add its command to the area map. Each test names the acceptance criterion it covers (`AC-n`) in its name or a comment. Do not write throwaway test scripts. When an acceptance criterion is removed, remove its tests and its `RELEASE-CHECKLIST.md` row in the same task; do not keep tests for behavior that is gone.
-   - **Stronger checks (optional):** for a Shared change or a release, the fresh-context reviewer may also test "what if" cases at the edges of the changed logic. Where the project has a mutation testing tool, it may run it on the changed code, to confirm that the new tests have real assertions. The developer decides whether the project uses these checks. Ask once, when you first fill the `ARCHITECTURE.md` Testing section (at setup or upgrade), with this message as plain chat text, and record the answer on its Stronger checks line:
+   - **Stronger checks (optional):** for a Shared change or a release, the fresh-context reviewer may also test "what if" cases at the edges of the changed logic. Where the project has a mutation testing tool, it may run it on the changed code, to confirm that the new tests have real assertions. The developer decides whether the project uses these checks. Ask once, when you first fill the `ARCHITECTURE.md` Testing section (at setup or upgrade), and record the answer on its Stronger checks line. Show all 3 options, each with its description, and wait for the developer's choice. Do not choose an option for the developer, and do not ask the developer only to confirm 1 option. If the AI tool has an interactive question tool, use it, with 1 choice for each option. If it has no such tool, send this message as plain chat text:
 
          Optional stronger checks, for Shared changes and releases only:
          1. Not used (most common): the normal tests only.
@@ -296,8 +298,8 @@ Every change gets 1 class before work starts. The class is defined here once; ru
             prove that the tests catch it. Needs the tool; much slower.
          Which one (1, 2, or 3)? You can change it later.
 
-     If the developer does not answer, record option 2 and say so in the task summary.
-10. **Plan before code.** Classify the change (Risk classes). For a Shared change, a change that touches several files, or a change whose approach is unclear, write the ready card from the `PLAN.md` Definition of ready and wait for approval. Approval of the card approves the plan, not its PROPOSED blocks (see *Proposed changes to SPEC and DESIGN*). A Small change with a clear approach goes ahead directly. Before a bug fix, reproduce the bug with a failing test or captured error output and save the test; no repro, no fix: ask. Never guess a version pin; read the lock file or ask. If the same fix fails twice, stop, report what you tried, and ask. A message that asks a question ("should we", "how hard is it", "why does") asks for an answer, not a change: answer it, and if the change is small and clear, offer it and wait. Before a destructive or irreversible action that the developer did not request, such as deleting files or data, ask first. Routine reversible steps (edits, installs, test runs) need no approval.
+     If the developer tells you to continue without a choice, record option 2 and say so in the task summary.
+10. **Plan before code.** Classify the change (Risk classes). For a Shared change, a change that touches several files, or a change whose approach is unclear, write the ready card from the `PLAN.md` Definition of ready, end it with its approval question, and wait for approval. Use the interactive question tool for that question if the AI tool has one. Approval of the card approves the plan, not its PROPOSED blocks (see *Proposed changes to SPEC and DESIGN*). A Small change with a clear approach goes ahead directly. Before a bug fix, reproduce the bug with a failing test or captured error output and save the test; no repro, no fix: ask. Never guess a version pin; read the lock file or ask. If the same fix fails twice, stop, report what you tried, and ask. A message that asks a question ("should we", "how hard is it", "why does") asks for an answer, not a change: answer it, and if the change is small and clear, offer it and wait. Before a destructive or irreversible action that the developer did not request, such as deleting files or data, ask first. Routine reversible steps (edits, installs, test runs) need no approval.
 11. **Every claim carries evidence.** End every task with the task summary from the `PLAN.md` Definition of done, every line present ("none" if empty); the `AGENTS.md` Reporting section points to it. Write the task summary and the handoff file for a reader who did not see the session: give full paths and names, use the Glossary terms, and do not use a term that the session invented. A test passed only if the results file shows it. A check the AI could not run is reported as "Not run: reason", never as passed. A Shared change is not done until its fresh-context review ran and its findings are fixed or listed. Never weaken, skip, or delete a test to make it pass; report the failure and its cause. After 3 test-fix rounds, stop and report. To dismiss a review finding, cite the file and line that shows it is wrong. Before reporting a task done, re-read the Definition of done and the ready card; this is the cheapest defense against a long context.
 
 ## Docs check and drift report
@@ -474,6 +476,8 @@ A Shared change, a change that touches several files, or a change whose approach
     Docs: (to update)
     Out of scope: (what this change will not do)
 
+    Do you approve this ready card? Reply "yes", or tell me what to change.
+
 ## Definition of done
 Before calling a task done:
 - Tests added/updated; targeted tests and the docs check pass, plus affected areas if other code uses the changed code (see the AGENTS.md Testing section; no full regression unless it calls for one)
@@ -519,7 +523,7 @@ Before calling a task done:
 AI working rules for every AI tool on this project; CLAUDE.md and .github/copilot-instructions.md only point here. At most 120 lines and 1,200 words.
 
 ## Project documentation standard
-- Aligned to KEEL 2.2.0 (https://github.com/rickflashman/keel).
+- Aligned to KEEL 2.2.1 (https://github.com/rickflashman/keel).
 - Authority for the doc structure: `KEEL.md` in the project root, else the KEEL skill, else the existing docs; read it before you change that structure. Never change, move, or delete `KEEL.md` unasked.
 - Precedence, highest first: direct developer instruction > docs/decisions/ > SPEC.md and DESIGN.md (accepted text, not PROPOSED blocks) > ARCHITECTURE.md and PLAN.md > RUNBOOK.md, USER-GUIDE.md, and MOCKUP.md (mockups only) > HANDOFF.md and RESEARCH.md > CHANGELOG.md (history only) > the code (evidence only) > docs/archive/ (never a source).
 
@@ -920,6 +924,8 @@ Use this section when the project already has documentation: another format, a s
 
 Add a new entry at the top for each update, with its version and date, and update the version stamp in the `AGENTS.md` template to match. Keep an entry short: a summary of 2 to 4 sentences. From 2.2.0, the upgrade rule reads 2 more lines (step 8 of *Migrating or upgrading an existing project*), so add each one when it applies. The Templates changed line names each template file, with the heading or the lines that changed; it does not repeat the new text, because the template has it. The Docs check line names each changed check.
 
+- **2.2.1 (November 12, 2026):** Fixes from a test of 2.2.0 on a new project. The AI asks the setup questions and the stronger checks question with the AI tool's interactive question tool when it has one. For the stronger checks question, it shows all 3 options and waits for a choice. It asks about the SPEC interview after every New setup and every Migration, and every ready card ends with an approval question (rule 10).
+  - **Templates changed:** `PLAN.md` (Definition of ready: a new approval question as the last line of the card).
 - **2.2.0 (November 11, 2026):** One general upgrade rule replaces the steps for each version (step 8 of *Migrating or upgrading an existing project*); the version blocks up to 2.1.2 are in `UPGRADING-2.x.md`. The `AGENTS.md` template is about 14% smaller and has a budget of 1,100 words (rule 8). The skills are smaller. New: a *Personal rules files* paragraph, a rule on deliberate blockers (rule 4), and exact definitions for the docs checks.
   - **Templates changed:** `AGENTS.md` (every section; the Docs list is shorter, and the Skills section is optional). `PLAN.md` (Definition of done: the Tested, Reviewed, and Affected docs lines). The handoff file (the Close routine line at the top). `README.md` (the Docs line). `.github/copilot-instructions.md` (the pointer lines). `MOCKUP.md` (a new "When to make mockups" heading). `CLAUDE.md` (a new optional note).
   - **Docs check:** every check has a new definition. Replace the whole list in the header comment, and add its first line, `Docs check for KEEL 2.2.0`.
